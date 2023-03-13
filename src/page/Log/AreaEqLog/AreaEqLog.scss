@@ -1,0 +1,167 @@
+// List
+.area-eq-log-list-container {
+    margin-top: 35px;
+    padding-bottom: 35px;
+}
+
+.area-eq-log-list-title {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 30% 150px 30% 100px;
+
+    >h3 {
+        background-color: rgb(63, 126, 163);
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        min-height: 50px;
+        text-align: center;
+        margin-left: 1px;
+        border-right: 2px solid #ddd;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+//清單欄開關
+.area-eq-log-switch-detail-btn {
+    background-color: rgb(63, 126, 163);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 5px;
+    color: white;
+    transition: cubic-bezier(0.075, 0, 0.165, 1) .2s;
+}
+
+.area-eq-log-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 30% 150px 30% 100px;
+    text-align: center;
+    height: 50px;
+
+    >p,
+    button {
+        padding: 10px 0;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    >button {
+        cursor: pointer;
+        color: rgb(22, 67, 104);
+    }
+}
+
+// Box
+.area-eq-log-box-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 3rem;
+    color: rgb(255, 208, 0);
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 995;
+}
+
+.area-eq-log-box-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    min-height: (calc(100vh - 60px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.area-eq-log-box-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: (calc(100vh - 60px));
+    background-color: rgba(13, 18, 27, 0.9);
+    cursor: pointer;
+}
+
+.area-eq-log-box-wrapper {
+    background-color: white;
+    overflow: scroll;
+    padding: 20px;
+    margin: 20px 0;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 600px;
+    z-index: 994;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    >div {
+        margin-bottom: 15px;
+    }
+}
+
+//box city list
+.area-eq-log-box-city-wrapper,
+.area-eq-log-box-eq-event-wrapper,
+.area-eq-log-box-town-wrapper {
+    border: 1px solid black;
+
+    >h2 {
+        padding: 5px 10px;
+        background-color: rgb(35, 86, 128);
+        color: white;
+        font-size: 1.3rem;
+    }
+}
+
+.area-eq-log-box-eq-event-wrapper {
+    >div {
+        padding: 5px 15px;
+        margin: 10px;
+
+        >h3 {
+            font-weight: 400;
+            margin: 5px 0;
+        }
+    }
+}
+
+.area-eq-log-box-city-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 15px;
+
+    >div {
+        margin: 1%;
+        font-size: 1.1rem;
+
+        >button {
+            font-size: 1.1rem;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+    }
+}
+
+.area-eq-log-box-towns-list-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px;
+
+    >div {
+        margin: 1%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+}

@@ -1,0 +1,33 @@
+.home-mqtt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    >p {
+        font-size: 1.3rem;
+    }
+}
+
+.home-mqtt-circle {
+    margin-left: 10px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    animation: breathe 3s linear infinite;
+}
+
+@keyframes breathe {
+    0% {
+        opacity: .6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .6;
+    }
+}

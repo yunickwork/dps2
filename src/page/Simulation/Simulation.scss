@@ -1,0 +1,121 @@
+.simulation-container {
+    width: 95%;
+    margin: 0 auto;
+    max-width: 1280px;
+
+    >h1 {
+        background-color: rgb(63, 126, 163);
+        ;
+        padding: 10px;
+        color: white;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+}
+
+.simulation-form {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.simulation-form-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.simulation-eq-level-btns-wrapper {
+    display: flex;
+    align-items: center;
+
+    >h3 {
+        margin: 0 20px;
+    }
+
+    >button {
+        cursor: pointer;
+        border: 1px solid rgb(129, 129, 129);
+        margin-right: 10px;
+        background-color: white;
+        width: 80px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+}
+
+.simulation-form-setting-wrapper {
+    >div {
+        margin: 0 0 20px;
+    }
+}
+
+.simulation-type-wrapper,
+.simulation-set-time-wrapper,
+.simulation-set-date-wrapper {
+    display: flex;
+    align-items: center;
+
+    >h3 {
+        margin: 0 20px;
+    }
+}
+
+.simulation-type,
+.simulation-set-time-input,
+.simulation-set-date-wrapper>input {
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+.simulation-set-time-input {
+    width: 150px;
+}
+
+.simulation-set-time-input::-webkit-inner-spin-button {
+    display: none;
+}
+
+.simulation-set-time-input::-webkit-outer-spin-button,
+.simulation-set-time-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.simulation-submit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+
+    >button {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        border: none;
+        background-color: rgb(63, 126, 163);
+        ;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+        transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+
+        &:hover {
+            background-color: rgb(59, 116, 150);
+        }
+    }
+}
+
+.audio-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.audio-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

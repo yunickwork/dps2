@@ -1,0 +1,6 @@
+.app-page-wrapper {
+    margin-top: 60px;
+    padding: 30px;
+    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
+}

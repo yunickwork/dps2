@@ -1,0 +1,300 @@
+.initial-container {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    background-color: #7babc7;
+    margin-top: -10px;
+    min-height: 100vh;
+}
+
+.initial-wrapper {
+    margin: 0 auto;
+    width: 95%;
+}
+
+// 歡迎安裝介面
+.initial-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #7babc7;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    transition: all .3s;
+    animation: App-logo-spin 3s;
+    z-index: 999;
+}
+
+// 開始按鈕
+.initial-start-button {
+    background-color: rgb(255, 208, 0);
+    transition: all .2s;
+    font-size: 1rem;
+    padding: 10px 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    margin: 20px 0;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 2px 10px rgb(255, 196, 0);
+    }
+}
+
+
+//
+.initial-section-container {
+    margin: 0 auto;
+    padding-top: 50px;
+    width: 95%;
+    max-width: 600px;
+    min-height: 100vh;
+    animation: App-logo-background 4s;
+}
+
+
+// initial step title
+.initial-step-title {
+    text-align: center;
+    color: white;
+    margin: 10px 0;
+}
+
+//頁面一
+.initial-section-one {
+    background-color: #6698b5;
+    min-height: 500px;
+    border-radius: 5px;
+
+    >article {
+        padding: 10px;
+        margin: 5px 0;
+        // border: 1px solid black;
+        background-color: rgb(225, 232, 239);
+
+        >p {
+            background-color: #245977;
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+//客製化
+.initial-section-one-reload-btn {
+    background-color: #245977;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    padding: 3px 0 0;
+    margin: 0 10px 0;
+    font-size: 1.2rem;
+    color: white;
+
+    &:hover {
+        background-color: #1e4961;
+    }
+}
+
+.initial-section-one-setting-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    >div {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        padding: 5px 0;
+
+        >p {
+            text-align: center;
+            width: 50px;
+            font-size: 1rem;
+        }
+
+        >input {
+            padding: 10px 5px;
+        }
+    }
+}
+
+// 頁面二
+.initial-section-two {
+    background-color: #7babc7;
+    min-height: 700px;
+    max-height: 700;
+    border-radius: 5px;
+}
+
+// Alert Container
+.alert-container {
+    background-color: #eee;
+    display: flex;
+    width: 100%;
+    max-height: 700px;
+    overflow-y: auto;
+
+    >div {
+        width: 100%;
+
+        >h1 {
+            padding: 15px 20px;
+            background-color: rgb(63, 126, 163);
+            color: white;
+        }
+    }
+}
+
+// Alert City
+.alert-city-container {
+    background-color: white;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    >div {
+        margin: 0.5%;
+
+        >h1 {
+            padding: 15px 20px;
+            background-color: rgb(63, 126, 163);
+            color: white;
+        }
+    }
+}
+
+.alert-city-name {
+    >h2 {
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    >div {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 10px;
+        padding: 10px;
+
+        >button {
+            width: 98%;
+            margin: 1%;
+            background-color: #eee;
+            border-radius: 2px;
+            transition: cubic-bezier(0.075, 0, 0.165, 1) .2s;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 12px;
+
+            &:hover {
+                background-color: rgb(255, 208, 0);
+            }
+        }
+    }
+
+}
+
+// Alert Towns 
+.alert-town-container {
+    background-color: white;
+    padding: 20px;
+}
+
+.alert-town-back-btns {
+    display: flex;
+    background-color: rgb(231, 231, 231);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    align-items: center;
+
+    &:hover {
+        background-color: rgb(211, 211, 211);
+    }
+}
+
+.alert-town-btns-wrapper {
+    margin: 10px;
+}
+
+.alert-town-btn {
+    padding: 15px;
+    margin: 1%;
+    font-size: 1rem;
+    background-color: rgb(231, 231, 231);
+
+    &:hover {
+        background-color: rgb(211, 211, 211);
+    }
+}
+
+.my-alert-town-container {
+    padding: 20px;
+}
+
+// 漸進式動畫
+@keyframes App-logo-background {
+    from {
+        display: none;
+    }
+
+    to {
+        display: block;
+    }
+}
+
+
+//按鈕
+.initial-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.initial-prev-btn,
+.initial-next-btn,
+.initial-finishes-btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    width: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .3s;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.initial-prev-btn {
+    background-color: rgb(255, 208, 0);
+
+    &:hover {
+        background-color: rgb(255, 196, 0);
+    }
+}
+
+.initial-next-btn {
+    background-color: #61dafb;
+
+    &:hover {
+        background-color: #46c8ec;
+    }
+}
+
+.initial-finishes-btn {
+    background-color: #61dafb;
+
+    &:hover {
+        background-color: #46c8ec;
+    }
+}

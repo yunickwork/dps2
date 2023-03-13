@@ -1,0 +1,148 @@
+.user-management-container {
+    width: 85%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.user-management-wrapper {
+    >h1 {
+        text-align: center;
+    }
+}
+
+.user-management-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-management-type-btn-wrapper {
+    >button {
+        background-color: white;
+        border: 1px solid rgba(45, 90, 116, 0.178);
+        margin: 10px 5px;
+        width: 120px;
+        padding: 10px;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+    }
+}
+
+.user-management-users-title {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(63, 126, 163);
+    color: white;
+    padding: 10px;
+}
+
+.user-management-users-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    font-size: 1.2rem;
+
+    &:nth-child(2n + 1) {
+        background-color: white;
+    }
+
+    &:nth-child(2n + 2) {
+        background-color: #f8f8f8;
+    }
+}
+
+.user-management-users-edit {
+    transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+    margin-top: 2px;
+    cursor: pointer;
+
+    >i {
+        position: relative;
+        font-size: 1.2rem;
+
+        &:hover {
+            color: orange;
+        }
+    }
+}
+
+.user-management-users-edit>i:hover>div {
+    display: block;
+}
+
+.user-management-users-edit-wrapper {
+    position: absolute;
+    display: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    background-color: white;
+    padding: 5px;
+    right: -50px;
+    width: 150px;
+    z-index: 99;
+
+    >div {
+        transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+
+        >a {
+            display: block;
+            background-color: #eee;
+            width: 100%;
+            margin: 2px 0;
+            padding: 10px;
+            color: black;
+            font-size: 1.1rem;
+            font-weight: 400;
+            font-style: normal;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgb(186, 221, 229);
+            }
+        }
+
+        >button {
+            cursor: pointer;
+            font-weight: 400;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1rem;
+            margin: 2px 0;
+            color: black;
+            background-color: #eee;
+            border: none;
+
+            &:hover {
+                background-color: rgb(186, 221, 229);
+            }
+        }
+    }
+}
+
+.user-sign-up-btn {
+    background-color: rgb(255, 208, 0);
+    color: black;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+
+    &:hover {
+        background-color: rgb(255, 196, 0);
+    }
+}
+
+.user-management-no-data {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 15px 0;
+    text-align: center;
+    background-color: white;
+    width: 100%;
+}

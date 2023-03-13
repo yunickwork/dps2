@@ -1,0 +1,170 @@
+.cwb-eq-log-wrapper {
+    text-align: center;
+    margin-left: 30px;
+
+    >p {
+        margin: 0 20px;
+        font-size: 1.2rem;
+
+    }
+}
+
+.cwb-select-eq-report-log-btns-wrapper {
+    display: flex;
+    align-items: center;
+
+    >button {
+        margin: 15px 2% 0 2%;
+        padding: 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        width: 130px;
+        border-radius: 5px;
+        color: white;
+    }
+}
+
+// List Container 
+.cwb-eq-log-list-container {
+    margin-top: 35px;
+    padding-bottom: 35px;
+}
+
+.cwb-eq-log-report-list-title {
+    display: grid;
+    justify-content: center;
+    margin: 0 auto;
+    grid-template-columns: 8% 15% 6% 6% 15% 6% 6% 1fr 6%;
+
+    >h3 {
+        background-color: rgb(63, 126, 163);
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        min-height: 50px;
+        text-align: center;
+        border-right: 2px solid #ddd;
+        margin-left: 1px;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+.cwb-eq-log-pReport-list-title {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 8% 15% 6% 6% 15% 6% 6% 6%;
+
+    >h3 {
+        background-color: rgb(63, 126, 163);
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        min-height: 50px;
+        text-align: center;
+        border-right: 1px solid #ddd;
+
+        &:last-child {
+            display: none;
+        }
+    }
+}
+
+.cwb-eq-log-report-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 8% 15% 6% 6% 15% 6% 6% 1fr 6%;
+    min-height: 50px;
+    overflow: hidden;
+
+    >p {
+        padding: 10px 0;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    button{
+        cursor: pointer;
+        color: rgb(22, 67, 104);
+    }
+}
+
+.cwb-eq-log-pReport-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 8% 15% 6% 6% 15% 6% 6% 6%;
+    min-height: 50px;
+    overflow: hidden;
+
+    >p {
+        padding: 10px 0;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        &:last-child {
+            display: none;
+        }
+    }
+    button{
+        cursor: pointer;
+        color: rgb(22, 67, 104);
+    }
+}
+
+
+//box
+.cwb-eq-log-box-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 3rem;
+    color: rgb(255, 208, 0);
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 995;
+}
+
+.cwb-eq-log-box-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    min-height: (calc(100vh - 60px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cwb-eq-log-box-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: (calc(100vh - 60px));
+    background-color: rgba(13, 18, 27, 0.9);
+    cursor: pointer;
+}
+
+.cwb-eq-log-box-wrapper {
+    background-color: white;
+    overflow: scroll;
+    padding: 20px;
+    margin: 20px 0;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 600px;
+    z-index: 994;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    >h3{
+        margin: 10px 0;
+    }
+
+}

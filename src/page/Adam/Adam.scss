@@ -1,0 +1,160 @@
+.adam-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    margin: 0 auto;
+    width: 95%;
+}
+
+.adam-wrapper {
+    width: 100%;
+    max-width: 1080px;
+}
+
+.adam-title {
+    background-color: rgb(63, 126, 163);
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    color: white;
+}
+
+.adam-select-btn {
+    >button {
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: white;
+        border: 1px solid rgba(45, 90, 116, 0.178);
+        margin: 10px 5px;
+        width: 120px;
+        padding: 12px 10px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+        border-radius: 2px;
+
+        &:hover {
+            background-color: rgb(206, 206, 206);
+            cursor: pointer;
+        }
+    }
+}
+
+.adam-dashboard-wrapper {
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 10px;
+    min-height: 500px;
+}
+
+/********** AdamForm *************/
+.adam-form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    padding: 10px 50px 20px;
+}
+
+
+.adam-form-wrapper>div {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+
+    >h3 {
+        margin: 10px;
+        text-align: center;
+    }
+
+    >div {
+        margin: 5px;
+        align-items: center;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+    }
+
+    option {
+        width: 100%;
+        border-radius: 0px;
+        padding: 10px;
+    }
+}
+
+
+.do-wrapper {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+}
+
+.do-wrapper-2 {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 85%;
+}
+
+.adam-btn-submit-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.adam-btn-submit {
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    width: 50%;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+    padding: 13px;
+    color: white;
+    background-color: rgb(63, 126, 163);
+    transition: cubic-bezier(0.075, 0, 0.165, 1) .3s;
+
+    &:hover {
+        background-color: rgb(59, 116, 150);
+    }
+}
+
+/********** AdamStatus ***********/
+.adam-status-wrapper {
+    padding: 15px;
+}
+
+.adam-status-title {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+.adam-status-setting-status-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+
+
+    >div {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        padding: 20px 0 0;
+
+        >h3 {
+            padding: 20px 0;
+
+            &:nth-child(2n + 1) {
+                background-color: rgb(247, 247, 247);
+            }
+
+            &:nth-child(2n + 2) {
+                background-color: #eee;
+            }
+        }
+    }
+}

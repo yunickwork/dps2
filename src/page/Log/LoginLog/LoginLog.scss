@@ -1,0 +1,40 @@
+.login-log-list-container {
+    padding-bottom: 35px;
+    max-width: 1280px;
+    margin: 35px auto 0;
+}
+
+.login-log-list-title {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+
+    >h3 {
+        background-color: rgb(63, 126, 163);
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        min-height: 50px;
+        text-align: center;
+        border-right: 2px solid #ddd;
+        margin-left: 1px;
+    }
+}
+
+.login-log-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    min-height: 50px;
+    overflow: hidden;
+
+    >p {
+        padding: 10px 0;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
