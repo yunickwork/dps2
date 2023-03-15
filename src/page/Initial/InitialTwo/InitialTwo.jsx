@@ -28,7 +28,7 @@ const InitialTwo = ({ currentCount }) => {
     //我選擇的鄉鎮
     const [myTowns, setMyTowns] = useState([])
 
-    console.log(myTowns)
+    // console.log(myTowns)
 
     return (
         <div style={{ display: `${currentCount === 2 ? 'block' : 'none'}` }} className='initial-section-two'>
@@ -43,7 +43,7 @@ const InitialTwo = ({ currentCount }) => {
                 <div>
                     <h1>您選擇的鄉鎮</h1>
                     <div className='alert-local-town-name-wrapper'>
-                        <MyAlertTown myTowns={myTowns} />
+                        <MyAlertTown myTowns={myTowns} setMyTowns={setMyTowns} />
                     </div>
                 </div>
             </section>

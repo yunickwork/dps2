@@ -2,9 +2,9 @@
     position: relative;
     top: 0;
     bottom: 0;
-    background-color: #7babc7;
     margin-top: -10px;
     min-height: 100vh;
+    width: 100%;
 }
 
 .initial-wrapper {
@@ -14,12 +14,12 @@
 
 // 歡迎安裝介面
 .initial-header {
+    background-color: #6698b5;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #7babc7;
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -51,10 +51,9 @@
 }
 
 
-//
 .initial-section-container {
     margin: 0 auto;
-    padding-top: 50px;
+    padding-top: 60px;
     width: 95%;
     max-width: 600px;
     min-height: 100vh;
@@ -65,27 +64,27 @@
 // initial step title
 .initial-step-title {
     text-align: center;
-    color: white;
     margin: 10px 0;
 }
 
 //頁面一
 .initial-section-one {
-    background-color: #6698b5;
     min-height: 500px;
     border-radius: 5px;
 
     >article {
-        padding: 10px;
         margin: 5px 0;
-        // border: 1px solid black;
-        background-color: rgb(225, 232, 239);
+        border: 1px solid black;
 
         >p {
             background-color: #245977;
             color: white;
             padding: 10px 15px;
             font-size: 1.1rem;
+        }
+
+        >div {
+            padding: 5px 20px;
         }
     }
 }
@@ -130,7 +129,6 @@
 
 // 頁面二
 .initial-section-two {
-    background-color: #7babc7;
     min-height: 700px;
     max-height: 700;
     border-radius: 5px;
@@ -160,6 +158,7 @@
     background-color: white;
     padding: 10px;
     display: grid;
+    min-height: 640px;
     grid-template-columns: 1fr 1fr;
 
     >div {
@@ -181,11 +180,13 @@
 
     >div {
         display: grid;
+        align-items: center;
         grid-template-columns: 1fr 1fr;
         margin-bottom: 10px;
         padding: 10px;
 
         >button {
+            border: 5px;
             width: 98%;
             margin: 1%;
             background-color: #eee;
@@ -206,7 +207,8 @@
 // Alert Towns 
 .alert-town-container {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
+    min-height: 640px;
 }
 
 .alert-town-back-btns {
@@ -231,14 +233,7 @@
     margin: 1%;
     font-size: 1rem;
     background-color: rgb(231, 231, 231);
-
-    &:hover {
-        background-color: rgb(211, 211, 211);
-    }
-}
-
-.my-alert-town-container {
-    padding: 20px;
+    border-radius: 5px;
 }
 
 // 漸進式動畫

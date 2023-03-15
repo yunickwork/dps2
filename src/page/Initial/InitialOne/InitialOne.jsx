@@ -2,28 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineReload } from "react-icons/ai";
 import TextField from '@mui/material/TextField';
 
-const InitialOne = ({ currentCount }) => {
-    // 單位 || 學校
-    const [name, setName] = useState('')
-    const [nameCheck, setNameCheck] = useState(false)
-
-    // 合約到期日
-    const [contractExpirationDate, setContractExpirationDate] = useState('')
-    const [date, setDate] = useState('')
-    const [dateCheck, setDateCheck] = useState(false)
-    const [time, setTime] = useState('')
-    const [timeCheck, setTimeCheck] = useState(false)
-
-    // 電腦 mac
-    const [mac, setMac] = useState('')
-
-    // mqtt 帳號 || 密碼
-    const [mqttAccount, setMqttAccount] = useState('')
-    const [mqttAccountCheck, setMqttAccountCheck] = useState(false)
-
-    const [mqttPwd, setMqttPwd] = useState('')
-    const [mqttPwdCheck, setMqttPwdCheck] = useState(false)
-
+const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setTime, timeCheck, setMac, mac, setMqttAccount, mqttAccountCheck, setMqttPwd, mqttPwdCheck }) => {
 
     // Cwb 帳號 || 密碼
     const [cwbAccount, setCwbAccount] = useState('')
@@ -38,7 +17,7 @@ const InitialOne = ({ currentCount }) => {
             .catch(e => {
                 console.log(e);
             })
-    }, [])
+    }, [setMac])
 
     const getMacHandler = () => {
         fetch(`http://10.100.105.103:4000/initial/get/mac`, { method: "GET" })
@@ -62,8 +41,7 @@ const InitialOne = ({ currentCount }) => {
                             error={nameCheck === true ? true : false}
                             type="text"
                             variant="outlined"
-                            // value={}
-                            onChange={(e) => console.log(e)}
+                            onChange={(e) => setName(e.target.value)}
                             helperText={nameCheck === true ? '名稱不得為空' : ''}
                         />
                     </div>
@@ -104,7 +82,7 @@ const InitialOne = ({ currentCount }) => {
                             type="text"
                             variant="outlined"
                             value={mac}
-                            onChange={(e) => console.log(e)}
+                            onChange={(e) => setMac(e.target.value)}
                             helperText={mac === '' ? 'mac不得為空' : ''}
                         />
                     </div>
@@ -115,21 +93,21 @@ const InitialOne = ({ currentCount }) => {
                     <div>
                         <p>帳號</p>
                         <TextField
-                            error={mqttAccountCheck === '' ? true : false}
+                            error={mqttAccountCheck === true ? true : false}
                             type="text"
                             variant="outlined"
-                            onChange={(e) => console.log(e.target.value.trim())}
-                            helperText={mqttAccountCheck === '' ? '帳號' : ''}
+                            onChange={(e) => setMqttAccount(e.target.value.trim())}
+                            helperText={mqttAccountCheck === true ? 'MQTT不得為空' : ''}
                         />
                     </div>
                     <div>
                         <p>密碼</p>
                         <TextField
-                            error={mqttPwdCheck === '' ? true : false}
+                            error={mqttPwdCheck === true ? true : false}
                             type="text"
                             variant="outlined"
-                            onChange={(e) => console.log(e.target.value.trim())}
-                            helperText={mqttPwdCheck === '' ? '帳號' : ''}
+                            onChange={(e) => setMqttPwd(e.target.value.trim())}
+                            helperText={mqttPwdCheck === true ? 'MQTT密碼不得為空' : ''}
                         />
                     </div>
                 </div>

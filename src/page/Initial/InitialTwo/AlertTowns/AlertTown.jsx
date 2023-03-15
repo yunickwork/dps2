@@ -19,7 +19,7 @@ const AlertTown = ({ towns, city, setTowns, myTowns, setMyTowns }) => {
             <div className='alert-town-btns-wrapper'>
                 {towns.map((town) => (
                     <button
-                        style={{ backgroundColor: `${myTowns.some(t => t.id === town.id) ? 'rgb(255, 208, 0)' : 'rgb(231, 231, 231)'}` }}
+                        style={{ backgroundColor: `${myTowns.some(t => t.id === town.id) ? 'rgb(255, 208, 0)' : 'rgb(231, 231, 231)'}`, '&:hover': { backgroundColor: 'rgb(211, 211, 211)' } }}
                         onClick={(e) => { e.preventDefault(); townsHandle(town.id, town.name, city) }}
                         className="alert-town-btn" key={town.id}
                     >
