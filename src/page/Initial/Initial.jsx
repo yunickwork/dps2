@@ -12,7 +12,7 @@ const Initial = () => {
   const [nameCheck, setNameCheck] = useState(false)
 
   // 合約到期日
-  const [contractExpirationDate, setContractExpirationDate] = useState('')
+  // const [contractExpirationDate, setContractExpirationDate] = useState('')
   const [date, setDate] = useState('')
   const [dateCheck, setDateCheck] = useState(false)
   const [time, setTime] = useState('')
@@ -23,50 +23,49 @@ const Initial = () => {
   // 電腦 mac
   const [mac, setMac] = useState('')
 
-  // mqtt 帳號 || 密碼
+  // mqtt 帳號 
   const [mqttAccount, setMqttAccount] = useState('')
   const [mqttAccountCheck, setMqttAccountCheck] = useState(false)
 
+  // mqtt 密碼
   const [mqttPwd, setMqttPwd] = useState('')
   const [mqttPwdCheck, setMqttPwdCheck] = useState(false)
 
+  // Cwb 帳號 || 密碼
+  const [cwbAccount, setCwbAccount] = useState('')
+  const [cwbPwd, setCwbPwd] = useState('')
+
   // ***** 表單二 *****//
-
-
 
   // 下一頁
   const nextHandle = (e) => {
-    e.preventDefault()
-    let isValid = true
-    if (name === '') {
-      setNameCheck(true)
-      isValid = false
-    }
-    if (date === '') {
-      setDateCheck(true)
-      isValid = false
-    }
-    if (time === '') {
-      setTimeCheck(true)
-      isValid = false
-    }
-    if (mac === '') {
-      setMac(true)
-      isValid = false
-    }
-    if (mqttAccount === '') {
-      setMqttAccountCheck(true)
-      isValid = false
-    }
-    if (mqttPwd === '') {
-      setMqttPwdCheck(true)
-      isValid = false
-    }
+    e.preventDefault();
+    let isValid = true;
+    const inputFields = [name, date, time, mqttAccount, mqttPwd];
+    const errorChecks = [
+      setNameCheck,
+      setDateCheck,
+      setTimeCheck,
+      setMqttAccountCheck,
+      setMqttPwdCheck,
+    ];
+
+    inputFields.forEach((value, index) => {
+      if (!value) {
+        errorChecks[index](true);
+        isValid = false;
+      } else {
+        errorChecks[index](false);
+      }
+    });
+
     if (isValid) {
-      setCurrentCount(2)
+      setCurrentCount(2);
+    } else {
+      setCurrentCount(1);
     }
-    setCurrentCount(isValid === false ? 1 : 2)
-  }
+  };
+
 
   // 傳送選單
   const submitHandle = (e) => {
@@ -99,6 +98,8 @@ const Initial = () => {
               mqttAccountCheck={mqttAccountCheck}
               setMqttPwd={setMqttPwd}
               mqttPwdCheck={mqttPwdCheck}
+              setCwbAccount={setCwbAccount}
+              setCwbPwd={setCwbPwd}
             />
             {/* 設定頁面 2 */}
             <InitialTwo currentCount={currentCount} style={{ display: `${currentCount === 2 ? 'block' : 'none'}` }} />

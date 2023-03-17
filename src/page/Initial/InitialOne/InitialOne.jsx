@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { AiOutlineReload } from "react-icons/ai";
 import TextField from '@mui/material/TextField';
 
-const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setTime, timeCheck, setMac, mac, setMqttAccount, mqttAccountCheck, setMqttPwd, mqttPwdCheck }) => {
-
-    // Cwb 帳號 || 密碼
-    const [cwbAccount, setCwbAccount] = useState('')
-    const [cwbPwd, setCwbPwd] = useState('')
+const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setTime, timeCheck, setMac, mac, setMqttAccount, mqttAccountCheck, setMqttPwd, mqttPwdCheck, setCwbAccount, setCwbPwd }) => {
 
     useEffect(() => {
         fetch(`http://10.100.105.103:4000/initial/get/mac`, { method: "GET" })
@@ -120,7 +116,7 @@ const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setT
                         <TextField
                             type="text"
                             variant="outlined"
-                            onChange={(e) => console.log(e.target.value.trim())}
+                            onChange={(e) => setCwbAccount(e.target.value.trim())}
                         />
                     </div>
                     <div>
@@ -128,7 +124,7 @@ const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setT
                         <TextField
                             type="text"
                             variant="outlined"
-                            onChange={(e) => console.log(e.target.value.trim())}
+                            onChange={(e) => setCwbPwd(e.target.value.trim())}
                         />
                     </div>
                 </div>

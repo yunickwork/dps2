@@ -2,6 +2,12 @@ import React from 'react'
 import './MyAlertTown.scss'
 
 const MyAlertTown = ({ myTowns, setMyTowns }) => {
+
+    const cancelHandle = (e, id) => {
+        e.preventDefault();
+        setMyTowns(prevTowns => prevTowns.filter(t => t.id !== id));
+    }
+
     return (
         <div className='my-alert-town-container'>
             <header style={{ textAlign: `${myTowns.length > 0 ? 'right' : 'center'}` }}>
@@ -10,7 +16,7 @@ const MyAlertTown = ({ myTowns, setMyTowns }) => {
             </header>
             <div className='my-alert-town-wrapper'>
                 {myTowns.map((town) =>
-                    <button className='my-alert-town-list' key={town.id}>
+                    <button onClick={(e) => cancelHandle(e, town.id)} className='my-alert-town-list' key={town.id}>
                         <p>{town.city}</p>
                         {'-'}
                         <p>{town.town}</p>
