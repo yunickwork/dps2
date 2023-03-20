@@ -6,7 +6,8 @@ import AlertCity from './AlertTowns/AlertCity';
 import AlertTowns from './AlertTowns/AlertTown';
 import MyAlertTown from './MyAlertTown/MyAlertTown.jsx';
 
-const InitialTwo = ({ currentCount }) => {
+const InitialTwo = ({ currentCount, setMyTowns, myTowns }) => {
+
     //鄉鎮城市1
     const cityTown1 = TaiwanCityTown_DB1.filter((city) => {
         const citySlice = city.city.slice(0, 2)
@@ -24,11 +25,6 @@ const InitialTwo = ({ currentCount }) => {
     const [city, setCity] = useState('');
     // 鄉鎮
     const [towns, setTowns] = useState([]);
-
-    //我選擇的鄉鎮
-    const [myTowns, setMyTowns] = useState([])
-
-    // console.log(myTowns)
 
     return (
         <div style={{ display: `${currentCount === 2 ? 'block' : 'none'}` }} className='initial-section-two'>

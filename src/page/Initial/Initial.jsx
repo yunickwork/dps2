@@ -12,7 +12,6 @@ const Initial = () => {
   const [nameCheck, setNameCheck] = useState(false)
 
   // 合約到期日
-  // const [contractExpirationDate, setContractExpirationDate] = useState('')
   const [date, setDate] = useState('')
   const [dateCheck, setDateCheck] = useState(false)
   const [time, setTime] = useState('')
@@ -36,6 +35,9 @@ const Initial = () => {
   const [cwbPwd, setCwbPwd] = useState('')
 
   // ***** 表單二 *****//
+
+  //我選擇的鄉鎮
+  const [myTowns, setMyTowns] = useState([])
 
   // 下一頁
   const nextHandle = (e) => {
@@ -70,6 +72,7 @@ const Initial = () => {
   // 傳送選單
   const submitHandle = (e) => {
     e.preventDefault()
+    console.log(name, date, time, mqttAccount, mqttPwd, cwbAccount, cwbPwd, myTowns)
   }
 
   return (
@@ -102,7 +105,7 @@ const Initial = () => {
               setCwbPwd={setCwbPwd}
             />
             {/* 設定頁面 2 */}
-            <InitialTwo currentCount={currentCount} style={{ display: `${currentCount === 2 ? 'block' : 'none'}` }} />
+            <InitialTwo currentCount={currentCount} setMyTowns={setMyTowns} myTowns={myTowns} style={{ display: `${currentCount === 2 ? 'block' : 'none'}` }} />
             {/* button wrapper 下一步 || 上一步 || 完成 */}
             <footer className='initial-btn-wrapper'>
               {currentCount === 1 ? '' : <button className='initial-prev-btn' onClick={(e) => { e.preventDefault(); setCurrentCount(1) }}>上一步</button>}
