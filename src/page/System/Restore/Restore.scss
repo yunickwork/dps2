@@ -1,0 +1,91 @@
+.restore-container {
+    position: relative;
+    background-color: rgba(18, 18, 18, 0.922);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 60px;
+    bottom: 0;
+    z-index: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.restore-wrapper {
+    background-color: white;
+    overflow-y: scroll;
+    width: 95%;
+    max-width: 850px;
+    max-height: 500px;
+    margin: 10px;
+
+    >h2 {
+        background-color: rgb(63, 126, 163);
+        padding: 5px 20px;
+        color: white;
+    }
+}
+
+.restore-form {
+    padding: 20px;
+
+    >article {
+        display: flex;
+        align-items: center;
+    }
+
+    >p {
+        padding: 5px;
+        margin: 10px 0;
+        border-bottom: 1px solid black;
+    }
+}
+
+.select-restore-option-wrapper {
+    padding: 10px;
+}
+
+.restore-btns-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+
+    >button {
+        font-size: 1.1rem;
+        color: white;
+        width: 100px;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px;
+
+        &:first-child {
+            background-color: rgb(63, 126, 163);
+
+            &:hover {
+                background-color: rgb(59, 116, 150);
+            }
+        }
+
+        &:last-child {
+            background-color: rgb(255, 30, 60);
+
+            &:hover {
+                background-color: rgb(235, 25, 53);
+            }
+        }
+    }
+}
+
+.restore-container-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 3rem;
+    color: rgb(255, 208, 0);
+    background-color: rgba(0, 0, 0, 0.0);
+    z-index: 995;
+    margin: 10px 0;
+}

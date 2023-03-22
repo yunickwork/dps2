@@ -118,8 +118,6 @@ const AreaEqLog = () => {
             .catch(err => console.log(err))
     };
 
-    console.log(logDB)
-
     return (
         <div className='area-eq-log-container'>
             <TablePagination

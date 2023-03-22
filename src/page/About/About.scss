@@ -8,8 +8,16 @@
 }
 
 .about-wrapper {
-    width: 1040px;
+    width: 100%;
+    max-width: 1040px;
     margin-top: 30px;
+
+    >p {
+        background-color: rgb(63, 126, 163);
+        padding: 10px 15px;
+        font-size: 1.1rem;
+        color: white;
+    }
 
     >div {
         border: 1px solid black;
@@ -39,4 +47,30 @@
 
 .about-title {
     text-align: center;
+}
+
+.about-company-logo {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.about-text {
+    text-align: center;
+    line-height: 30px;
+    max-width: 850px;
+    margin: 50px 0 20px;
+    font-size: 1.1rem;
+}
+
+.app-update,
+.app-update-check {
+    background-color: rgb(255, 208, 0);
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 10px;
+
+    &:hover {
+        background-color: rgb(255, 196, 0);
+    }
 }

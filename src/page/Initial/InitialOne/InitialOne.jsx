@@ -15,7 +15,8 @@ const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setT
             })
     }, [setMac])
 
-    const getMacHandler = () => {
+    const getMacHandler = (e) => {
+        e.preventDefault();
         fetch(`http://10.100.105.103:4000/initial/get/mac`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
@@ -83,7 +84,7 @@ const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setT
                         />
                     </div>
                     <div>
-                        <button onClick={getMacHandler} className='initial-section-one-reload-btn'><AiOutlineReload /></button>
+                        <button onClick={(e) => getMacHandler(e)} className='initial-section-one-reload-btn'><AiOutlineReload /></button>
                         <h5>沒有顯示ID的話, 請案Reload鍵</h5>
                     </div>
                     <div>

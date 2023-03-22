@@ -72,7 +72,74 @@ const Initial = () => {
   // 傳送選單
   const submitHandle = (e) => {
     e.preventDefault()
-    console.log(name, date, time, mqttAccount, mqttPwd, cwbAccount, cwbPwd, myTowns)
+
+    // 整理我選擇的警報地區
+    const submitTowns = myTowns.map(item => ({ Areacode: item.id }))
+
+    // 機器出廠時間
+    const nowDate = new Date();
+    const nowYear = nowDate.getFullYear();
+    const nowMonth = ('0' + (nowDate.getMonth() + 1)).slice(-2);
+    const nowDay = ('0' + nowDate.getDate()).slice(-2);
+    const nowHour = ('0' + nowDate.getHours()).slice(-2);
+    const nowMinute = ('0' + nowDate.getMinutes()).slice(-2);
+    const nowSecond = ('0' + nowDate.getSeconds()).slice(-2);
+    const formattedDate = `${nowYear}-${nowMonth}-${nowDay} ${nowHour}:${nowMinute}:${nowSecond}`;
+
+    const isConfirmed = window.confirm('您確定要送出嗎？');
+    if (!isConfirmed) {
+      return;
+    }
+
+    // 表單一 傳送我輸入的表單一資訊給後端
+    const form_one_http = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        information: [
+          {
+            unitName: name,
+            CED: `${date} ${time}:00`,
+            machineID: `${mac}`,
+            machineDate: `${formattedDate}`,
+            initialSetup: true
+          }
+        ],
+        mqtt: [
+          {
+            ID: mac,
+            ACC: mqttAccount,
+            PSW: mqttPwd
+          }
+        ],
+        cwb: [
+          {
+            ACC: cwbAccount,
+            PSW: cwbPwd
+          }
+        ]
+      })
+    };
+
+    fetch(`http://10.100.105.103:4000/initial/formOne`, form_one_http)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+
+    // 表單二 傳送我選擇的警報地區給後端
+    const alert_towns_http = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ area_code: JSON.stringify(submitTowns) })
+    };
+
+    fetch(`http://10.100.105.103:4000/initial/Alarm_towns`, alert_towns_http)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+
+    // 等待 500 毫秒送出
+    setTimeout((() => window.location.href = '/'), 500);
   }
 
   return (

@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import './System.scss'
+import Restore from './Restore/Restore.jsx';
 
-const System = ({ appGrayColorMin, appMqttMin, appLoginCount, appLockMin }) => {
+const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
     // 地震便灰色時間設定
     const [grayColorMin, setGrayColorMin] = useState(Number(appGrayColorMin))
     const [grayColorMinCheck, setGrayColorMinCheck] = useState(false)
-
-    // 複合式連線間格設定
-    const [mqttMin, setMqttMin] = useState(Number(appMqttMin))
-    const [mqttMinCheck, setMqttMinCheck] = useState(false)
 
     // 設定登入次數
     const [loginCount, setLoginCount] = useState(Number(appLoginCount))
@@ -19,17 +16,18 @@ const System = ({ appGrayColorMin, appMqttMin, appLoginCount, appLockMin }) => {
     const [loginLockMin, setLoginLockMin] = useState(Number(appLockMin))
     const [loginLockMinCheck, setLoginLockMinCheck] = useState(false)
 
+    // 機器還原彈窗
+    // const []
+
     const submitHandle = (e) => {
         e.preventDefault()
         let check = false
 
         grayColorMin < 1 || grayColorMin === '' ? setGrayColorMinCheck(true) : setGrayColorMinCheck(false)
-        mqttMin < 1 || mqttMin === '' ? setMqttMinCheck(true) : setMqttMinCheck(false)
         loginCount < 1 || loginCount === '' ? setLoginCountCheck(true) : setLoginCountCheck(false)
         loginLockMin < 1 || loginLockMin === '' ? setLoginLockMinCheck(true) : setLoginLockMinCheck(false)
 
         if (grayColorMin < 1 || grayColorMin === '') return
-        if (mqttMin < 1 || mqttMin === '') return
         if (loginCount < 1 || loginCount === '') return
         if (loginLockMin < 1 || loginLockMin === '') return
 
@@ -38,7 +36,7 @@ const System = ({ appGrayColorMin, appMqttMin, appLoginCount, appLockMin }) => {
         const UpdateSystemSetting = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ grayColorMin: grayColorMin, mqttMin: mqttMin, loginCount: loginCount, lockMin: loginLockMin })
+            body: JSON.stringify({ grayColorMin: grayColorMin, loginCount: loginCount, lockMin: loginLockMin })
         }
         fetch(`http://10.100.105.103:4000/system/setting/update`, UpdateSystemSetting)
             .then(response => response.json())
@@ -51,12 +49,16 @@ const System = ({ appGrayColorMin, appMqttMin, appLoginCount, appLockMin }) => {
     return (
         <div className='system-container'>
             <h1 className='system-title'>系統設定</h1>
+            <div className='system-restore-defaults-wrapper'>
+                <button className='system-restore-defaults-btn'>機器還原預設</button>
+                <Restore />
+            </div>
             <div className='system-wrapper'>
                 <form className='system-form' onSubmit={(e) => submitHandle(e)}>
                     <h3>主頁設定</h3>
                     <div className='system-home-wrapper'>
                         <div>
-                            <label>震度顏色轉換灰色</label>
+                            <label>震度顏色轉換灰色 ( 預設為60分鐘 )</label>
                             <TextField
                                 error={grayColorMinCheck === true ? true : false}
                                 defaultValue={`${appGrayColorMin}`}
@@ -65,17 +67,6 @@ const System = ({ appGrayColorMin, appMqttMin, appLoginCount, appLockMin }) => {
                                 helperText={grayColorMinCheck === true && '不得為空或小於1'}
                             />
                             <h3>分鐘</h3>
-                        </div>
-                        <div>
-                            <label>複合式平台連線狀況</label>
-                            <TextField
-                                error={mqttMinCheck === true ? true : false}
-                                defaultValue={`${appMqttMin}`}
-                                type="number"
-                                onChange={(e) => setMqttMin(Number(e.target.value))}
-                                helperText={mqttMinCheck === true && '不得為空或小於1'}
-                            />
-                            <h3>分鐘監聽一次</h3>
                         </div>
                     </div>
                     <h3>登入設定</h3>

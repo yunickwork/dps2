@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import NativeSelect from '@mui/material/NativeSelect';
 import NotFound from '../../NotFound/NotFound';
 
+
 const UserPage = () => {
     const myAuthority = localStorage.getItem('myAuthority')
     const myId = localStorage.getItem('myId')
@@ -32,7 +33,7 @@ const UserPage = () => {
 
     //權限
     const [authority, setAuthority] = useState(`${myAuthority}`)
-    const [checkauthority , setCheckAuthority] = useState('')
+    const [checkauthority, setCheckAuthority] = useState('')
 
     //姓名
     const [name, setName] = useState('')
@@ -73,8 +74,8 @@ const UserPage = () => {
     }, [userId])
 
     //權限判斷
-    if(myAuthority === 'client' && myId !== userId) return <NotFound/>
-    if(checkauthority === 'system-staff' && myAuthority === 'client-system-staff') return <NotFound/>
+    if (myAuthority === 'client' && myId !== userId) return <NotFound />
+    if (checkauthority === 'system-staff' && myAuthority === 'client-system-staff') return <NotFound />
     if (userDB === null) return
 
     const submitHandle = (e) => {
@@ -130,11 +131,18 @@ const UserPage = () => {
             localStorage.setItem('myName', name);
         }
 
-        if (check === true && myAuthority !== 'client') {
-            setTimeout((() => window.location.href = '/UserManagement'), 500);
+        // 判斷一 : 如果有更新權限我就清除 localStorage , 並回到登入畫面
+        // 判斷二 : 如果不是 'client' 的話 , 我就回到帳戶管理頁面
+        // 判斷三 : 其他直接回主頁
+        if (myAuthority !== authority) {
+            localStorage.clear();
+            setTimeout(() => window.location.href = '/', 500);
+        } else if (check === true && myAuthority !== 'client') {
+            setTimeout(() => window.location.href = '/UserManagement', 500);
         } else {
-            setTimeout((() => window.location.href = '/'), 500);
+            setTimeout(() => window.location.href = '/', 500);
         }
+
     }
 
     return (

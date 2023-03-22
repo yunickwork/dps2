@@ -83,3 +83,24 @@
         }
     }
 }
+
+// 還原系統設定
+.system-restore-defaults-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.system-restore-defaults-btn {
+    background-color: rgb(255, 30, 60);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    &:hover {
+        background-color: rgb(234, 26, 54);
+    }
+}

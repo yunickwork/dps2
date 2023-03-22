@@ -55,7 +55,11 @@ const App = () => {
   let [appLockMin, setAppLockMin] = useState(null)
 
   // 初始化確認
-  let [appInitialSetup, setAppInitialSetup] = useState('')
+  let [appInitialSetup, setAppInitialSetup] = useState(undefined)
+  let [appUnitName, setAppUnitName] = useState(undefined)
+  let [appMachineName, setAppMachineName] = useState(undefined)
+  let [appMachineDate, setAppMachineDate] = useState(undefined)
+  let [appCED, setAppCED] = useState(undefined)
 
   useEffect(() => {
     // 監聽城市 & 鄉鎮 API
@@ -154,11 +158,17 @@ const App = () => {
     fetch(`http://10.100.105.103:4000/system/setting`, systemSettingHTTP)
       .then(response => response.json())
       .then(data => {
+        // 系統設定
         setAppGrayColorMin(data[0].eqGrayColorMin)
         setAppMqttMin(data[0].mqttMin)
         setAppLoginCount(data[0].loginCount)
         setAppLockMin(data[0].lockMin)
+        // 系統資訊
         setAppInitialSetup(data[0].initialSetup)
+        setAppUnitName(data[0].unitName)
+        setAppMachineName(data[0].machineID)
+        setAppMachineDate(data[0].machineDate)
+        setAppCED(data[0].CED)
       });
   }, [])
 
@@ -196,7 +206,8 @@ const App = () => {
             {/* System Setting */}
             {myAuthority === 'system-staff' ? <Route path='/System' element={<System appGrayColorMin={appGrayColorMin} appMqttMin={appMqttMin} appLoginCount={appLoginCount} appLockMin={appLockMin} />} /> : <Route path='*' element={<NotFound />} />}
             {/* About */}
-            <Route path='/About' element={<About />} />
+            <Route path='/About' element={<About appUnitName={appUnitName} appMachineName={appMachineName} appMachineDate={appMachineDate} appCED={appCED} />} />
+            {/* Not Found */}
             <Route path='*' element={<NotFound />} />
           </Routes>
         </section>
