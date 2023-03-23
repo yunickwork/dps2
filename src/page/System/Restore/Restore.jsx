@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { MdOutlineClose } from "react-icons/md";
 
-const Restore = () => {
+const Restore = ({ setRestorePage, restorePage }) => {
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [radioValue, setRadioValue] = useState('option-1');
@@ -28,8 +28,9 @@ const Restore = () => {
     };
 
     return (
-        <div className='restore-container'>
-            <button className='restore-container-close-btn'><MdOutlineClose /></button>
+        <div style={{ display: `${restorePage === false ? 'none' : 'flex'}` }} className='restore-container'>
+            <button onClick={() => setRestorePage(false)} className='restore-container-close-btn'><MdOutlineClose /></button>
+            <div className='restore-wrapper-bg' onClick={() => setRestorePage(false)}></div>
             <div className='restore-wrapper'>
                 <h2>系統還原選項</h2>
                 <form className='restore-form'>
@@ -50,7 +51,7 @@ const Restore = () => {
                         />
                         <p>清除系統Log</p>
                     </article>
-                    <p>請選擇重設的模式 (如果要選擇請重新選擇一個)</p>
+                    <p>請選擇重設的模式</p>
                     <article className='select-restore-option-wrapper'>
                         <FormControl>
                             <FormLabel style={{ marginBottom: '10px' }}>機器還原設定選項 (進入初始化設定)</FormLabel>

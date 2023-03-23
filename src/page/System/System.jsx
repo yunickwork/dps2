@@ -17,7 +17,7 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
     const [loginLockMinCheck, setLoginLockMinCheck] = useState(false)
 
     // 機器還原彈窗
-    // const []
+    const [restorePage, setRestorePage] = useState(false)
 
     const submitHandle = (e) => {
         e.preventDefault()
@@ -50,8 +50,8 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
         <div className='system-container'>
             <h1 className='system-title'>系統設定</h1>
             <div className='system-restore-defaults-wrapper'>
-                <button className='system-restore-defaults-btn'>機器還原預設</button>
-                <Restore />
+                <button onClick={() => setRestorePage(true)} className='system-restore-defaults-btn'>機器還原預設</button>
+                <Restore setRestorePage={setRestorePage} restorePage={restorePage} />
             </div>
             <div className='system-wrapper'>
                 <form className='system-form' onSubmit={(e) => submitHandle(e)}>

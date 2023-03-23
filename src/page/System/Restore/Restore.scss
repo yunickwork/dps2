@@ -1,16 +1,15 @@
 .restore-container {
     position: relative;
-    background-color: rgba(18, 18, 18, 0.922);
     position: fixed;
     left: 0;
     right: 0;
     top: 60px;
     bottom: 0;
-    z-index: 1;
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .restore-wrapper {
@@ -20,6 +19,7 @@
     max-width: 850px;
     max-height: 500px;
     margin: 10px;
+    z-index: 1;
 
     >h2 {
         background-color: rgb(63, 126, 163);
@@ -88,4 +88,15 @@
     background-color: rgba(0, 0, 0, 0.0);
     z-index: 995;
     margin: 10px 0;
+}
+
+.restore-wrapper-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: (calc(100vh - 60px));
+    background-color: rgba(13, 18, 27, 0.9);
+    cursor: pointer;
+    z-index: 0;
 }
