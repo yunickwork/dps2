@@ -7,7 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 
-// Page File
+// Page Location
 import Home from './page/Home/Home.jsx'
 import Navbar from './components/Navbar/Navbar.jsx';
 import SideNav from './components/SideNav/SideNav.jsx';
@@ -61,153 +61,139 @@ const App = () => {
   let [appMachineDate, setAppMachineDate] = useState(undefined)
   let [appCED, setAppCED] = useState(undefined)
 
+  // Domain Name
+  const domain = '10.100.105.103';
+
   useEffect(() => {
-    // 監聽城市 & 鄉鎮 API
-    fetch(`http://10.100.105.103:4000/settings/Listen_towns`, { method: "GET" })
-      .then(res => res.json())
-      .then(data => {
-        setListenCity(data[0].Areacode.slice(0, 5))
-        setListenTowns([...data])
-      })
-      .catch(e => {
-        console.log(e);
-      })
-
-    // 複合式連接狀態 API
-    fetch(`http://10.100.105.103:4000/logs/connect`, { method: "GET" })
-      .then(res => res.json())
-      .then(data => {
-        setAppMqtt(data)
-      })
-      .catch(e => {
-        console.log(e);
-      })
-
-    // 鄉鎮地震事件
-    const eqEvtHttp = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
-    };
-    fetch(`http://10.100.105.103:4000/data/area_data`, eqEvtHttp)
-      .then(response => response.json())
-      .then(data => {
-        setEqData(data)
-      });
-
-    // 氣象局報告
-    const reportHTTP = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
+    // API 函數集中存放
+    const api = {
+      fetchListenTowns: () => fetch(`http://${domain}:4000/settings/Listen_towns`),
+      fetchConnectLogs: () => fetch(`http://${domain}:4000/logs/connect`),
+      fetchAreaData: () => fetch(`http://${domain}:4000/data/area_data`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify() }),
+      fetchReport: () => fetch(`http://${domain}:4000/data/Report`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify() }),
+      fetchPReport: () => fetch(`http://${domain}:4000/data/PReport`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify() }),
+      fetchSystemSettings: () => fetch(`http://${domain}:4000/system/setting`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify() }),
     };
 
-    fetch(`http://10.100.105.103:4000/data/Report`, reportHTTP)
-      .then(response => response.json())
-      .then(data => {
-        if (data.length === 0) {
-          setAppCwbReport([
-            {
-              "id": "no_data",
-              "depth": "",
-              "mag": "",
-              "origintime": "2022-04-18 00:00:00",
-              "lon": "",
-              "lat": "",
-              "Rposition": "",
-              "xml": null
-            }
-          ])
-        } else {
-          setAppCwbReport(data)
-        }
-      });
+    async function fetchData() {
+      try {
+        // 監聽城市 & 鄉鎮 API
+        const listenTownsData = await api.fetchListenTowns().then(res => res.json());
+        setListenCity(listenTownsData[0].Areacode.slice(0, 5));
+        setListenTowns(listenTownsData);
 
-    // 氣象局速報
-    const pReportHTTP = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
-    };
-    fetch(`http://10.100.105.103:4000/data/PReport`, pReportHTTP)
-      .then(response => response.json())
-      .then(data => {
-        if (data.length === 0) {
-          setAppCwbPReport([
-            {
-              "id": "no_data",
-              "depth": "",
-              "mag": "",
-              "origintime": "2022-04-18 00:00:00",
-              "lon": "0",
-              "lat": "0",
-              "xml": null
-            }
-          ])
-        } else {
-          setAppCwbPReport(data)
-        }
-      });
+        // 複合式連接狀態 API
+        const connectLogsData = await api.fetchConnectLogs().then(res => res.json());
+        if (connectLogsData.length === 0);
+        setAppMqtt(connectLogsData);
 
-    // 系統設定
-    const systemSettingHTTP = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
-    };
-    fetch(`http://10.100.105.103:4000/system/setting`, systemSettingHTTP)
-      .then(response => response.json())
-      .then(data => {
+        // 鄉鎮地震事件
+        const areaData = await api.fetchAreaData().then(res => res.json());
+        setEqData(areaData);
+
+        // 氣象局報告
+        const reportData = await api.fetchReport().then(res => res.json());
+        setAppCwbReport(reportData.length === 0 ? [
+          {
+            "id": "no_data",
+            "depth": "",
+            "mag": "",
+            "origintime": "2022-04-18 00:00:00",
+            "lon": "",
+            "lat": "",
+            "Rposition": "",
+            "xml": null
+          }
+        ] : reportData);
+
+        // 氣象局速報
+        const pReportData = await api.fetchPReport().then(res => res.json());
+        setAppCwbPReport(pReportData.length === 0 ? [
+          {
+            "id": "no_data",
+            "depth": "",
+            "mag": "",
+            "origintime": "2022-04-18 00:00:00",
+            "lon": "0",
+            "lat": "0",
+            "xml": null
+          }
+        ] : pReportData);
+
         // 系統設定
-        setAppGrayColorMin(data[0].eqGrayColorMin)
-        setAppMqttMin(data[0].mqttMin)
-        setAppLoginCount(data[0].loginCount)
-        setAppLockMin(data[0].lockMin)
+        const systemSettingsData = await api.fetchSystemSettings().then(res => res.json());
+        const settings = systemSettingsData[0];
+        // 系統設定
+        setAppGrayColorMin(settings.eqGrayColorMin);
+        setAppMqttMin(settings.mqttMin);
+        setAppLoginCount(settings.loginCount);
+        setAppLockMin(settings.lockMin);
         // 系統資訊
-        setAppInitialSetup(data[0].initialSetup)
-        setAppUnitName(data[0].unitName)
-        setAppMachineName(data[0].machineID)
-        setAppMachineDate(data[0].machineDate)
-        setAppCED(data[0].CED)
-      });
+        setAppInitialSetup(settings.initialSetup);
+        setAppUnitName(settings.unitName);
+        setAppMachineName(settings.machineID);
+        setAppMachineDate(settings.machineDate);
+        setAppCED(settings.CED);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
   }, [])
 
-  if (appInitialSetup === 'false') return <Initial />
-  if (localStorage.getItem('myToken') === null) return <Login appLoginCount={appLoginCount} appLockMin={appLockMin} />
-  if (listenCity === '') return
-  if (!listenTowns) return
-  if (eqData === undefined) return <Loading height={100} />
-  if (appCwbReport === null) return
-  if (appCwbPReport === null) return
-  if (appLockMin === null || appLockMin === null) return
+  // 需要填寫初始化
+  if (appInitialSetup === 'false') {
+    return <Initial />;
+  }
 
-  const myAuthority = localStorage.getItem('myAuthority')
+  // 我的 token 不是空的
+  if (localStorage.getItem('myToken') === null) {
+    return <Login appLoginCount={appLoginCount} appLockMin={appLockMin} />;
+  }
+
+  // 讀取 Loading 畫面
+  if (listenCity === '' || !listenTowns || eqData === undefined || appCwbReport === null || appCwbPReport === null || appLockMin === null || appLockMin === null) {
+    if (eqData === undefined) {
+      return <Loading height={100} />;
+    }
+    return null;
+  }
+
+  // 我的權限
+  const myAuthority = localStorage.getItem('myAuthority');
 
   return (
     <main className='app-container'>
       <div className='app-wrapper'>
+        {/* 導航欄 */}
         <Navbar sideStatus={sideStatus} setSideStatus={setSideStatus} />
+        {/* 側邊欄 */}
         <SideNav sideStatus={sideStatus} />
         <section className='app-page-wrapper'>
           <Routes>
+            {/* 首頁 */}
             <Route path='/' element={<Home appMqttMin={appMqttMin} appGrayColorMin={appGrayColorMin} listenCity={listenCity} listenTowns={listenTowns} appMqtt={appMqtt} eqData={eqData} appCwbReport={appCwbReport} appCwbPReport={appCwbPReport} />} />
+            {/* 選擇本機位置頁面 */}
             {myAuthority === 'system-staff' ? <Route path='/SelectLocal' element={<SelectLocal />} /> : <Route path='*' element={<NotFound />} />}
+            {/* 移報設定頁面 */}
             {myAuthority === 'system-staff' ? <Route path='/Adam' element={<Adam />} /> : <Route path='*' element={<NotFound />} />}
-            <Route path='/Simulation' element={<Simulation />} />
-            {/* User */}
+            {/* 模擬發報頁面 */}
+            <Route path='/Simulation' element={<Simulation domain={domain} />} />
+            {/* 使用者管理頁面 */}
             {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/UserManagement' element={<UserManagement />} /> : <Route path='*' element={<NotFound />} />}
             {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/UserSignUp' element={<UserSignUp />} /> : <Route path='*' element={<NotFound />} />}
             <Route path='/UserPage/:id' element={<UserPage />} />
-            {/* LOG */}
+            {/* 各種 LOG 頁面 */}
             <Route path='/AreaEqLog' element={<AreaEqLog />} />
             <Route path='/CwbEqLog' element={<CwbEqLog />} />
             <Route path='/SimulationLog' element={<SimulationLog />} />
             <Route path='/LoginLog' element={<LoginLog />} />
-            {/* System Setting */}
-            {myAuthority === 'system-staff' ? <Route path='/System' element={<System appGrayColorMin={appGrayColorMin} appMqttMin={appMqttMin} appLoginCount={appLoginCount} appLockMin={appLockMin} />} /> : <Route path='*' element={<NotFound />} />}
-            {/* About */}
+            {/* 系統設定頁面 */}
+            {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/System' element={<System appGrayColorMin={appGrayColorMin} appMqttMin={appMqttMin} appLoginCount={appLoginCount} appLockMin={appLockMin} />} /> : <Route path='*' element={<NotFound />} />}
+            {/* 關於系統頁面 */}
             <Route path='/About' element={<About appUnitName={appUnitName} appMachineName={appMachineName} appMachineDate={appMachineDate} appCED={appCED} />} />
-            {/* Not Found */}
+            {/* Not Found 頁面 */}
             <Route path='*' element={<NotFound />} />
           </Routes>
         </section>

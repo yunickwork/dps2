@@ -10,7 +10,7 @@ const Loading = ({ height }) => {
                         <circle className='loading-circle' cx="50" cy="50" r="46" />
                     </svg>
                 </div>
-                <p>讀取中</p>
+                <p>Loading...</p>
             </div>
         </div>
     )

@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { Manager_DB } from '../../../db/SideNavDB/Manager_DB.js'
 //React Icon
 import { AiOutlineHome, AiFillCaretDown } from "react-icons/ai";
-import { BiMapPin, BiUser } from "react-icons/bi";
+import { BiUser } from "react-icons/bi";
 import { BsFileEarmarkText, BsFillGearFill } from "react-icons/bs";
-import { FaExchangeAlt } from "react-icons/fa";
 import { TbWaveSawTool } from "react-icons/tb";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 
@@ -30,8 +29,6 @@ const ManagerView = () => {
                             onClick={(e) => item.pages !== null && e.preventDefault()}
                         >
                             {item.id === '/' && <AiOutlineHome />}
-                            {item.id === 'SelectLocal' && <BiMapPin />}
-                            {item.id === 'Adam' && <FaExchangeAlt />}
                             {item.id === 'Log' && <BsFileEarmarkText />}
                             {item.id === 'Simulation' && <TbWaveSawTool />}
                             {item.id === 'UserManagement' && <BiUser />}

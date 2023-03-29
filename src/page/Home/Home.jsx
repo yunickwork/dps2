@@ -60,7 +60,7 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
 
     //最新地震鄉鎮資訊
     let townArray = []
-   
+
     //這邊是在做資料轉換並讓 areacode 含有中文
     eqTownEvtCheck.map((evt) => {
         filterTowns.map((town) => {
@@ -93,36 +93,36 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
     if (eqTownEvtCheck.length === 0) eqTownEvtCheck.push({ eventtime: 0 })
 
     //整理數據
-    let townArraySort = townArray.slice().sort(function(a, b) {
+    let townArraySort = townArray.slice().sort(function (a, b) {
         let areacodeA = parseInt(a.id);
         let areacodeB = parseInt(b.id);
-      
+
         // 判斷地震值
         if (a.inx !== '' && b.inx !== '' && a.inx > b.inx) {
-          return -1;
+            return -1;
         } else if (a.inx < b.inx) {
-          return 1;
+            return 1;
         }
-      
+
         // 判斷相等的情况
         if (areacodeA === areacodeB && a.inx === b.inx) {
-          return 0;
+            return 0;
         }
-      
+
         // 如果兩個 areacode 和 inx 值都相同，則按 areacode 值降序排序
         if (a.inx === b.inx && areacodeA > areacodeB) {
-          return -1;
+            return -1;
         } else if (a.inx === b.inx && areacodeA < areacodeB) {
-          return 1;
+            return 1;
         }
-      
+
         // 按 areacode 值升序排序
         if (areacodeA < areacodeB) {
-          return -1;
+            return -1;
         } else if (areacodeA > areacodeB) {
-          return 1;
+            return 1;
         }
-            
+
         // 如果兩個數據完全相同，則保持原樣
         return 0;
     });
@@ -178,7 +178,7 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
                                         color: `${nowDate_ts < eqEvtDate_ts && maxInxTownSortArray[0].inx >= 5.0 ? 'white' : 'black'}`
                                     }}
                                 >
-                                    <h3>{maxInxTownSortArray[0].inx === '' ? '無地震' : '最大地震'}</h3>
+                                    <h3>{maxInxTownSortArray[0].inx === '' ? '目前無資料' : '最大地震'}</h3>
 
                                     <h3>{maxInxTownSortArray[0].inx >= 7.0 ? '7級' :
                                         maxInxTownSortArray[0].inx >= 6.5 ? '6強' :

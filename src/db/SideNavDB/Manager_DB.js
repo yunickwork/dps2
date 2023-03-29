@@ -34,6 +34,11 @@ export const Manager_DB = [
         switch: false,
     },
     {
+        id: 'System',
+        name: '系統設定',
+        pages: null,
+    },
+    {
         id: 'About',
         name: '關於系統',
         pages: null,

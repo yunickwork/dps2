@@ -105,7 +105,7 @@ const EqReport = ({ appGrayColorMin, nowDate_ts, appCwbReport, appCwbPReport }) 
                     color: `${report_ts >= pReport_ts ? nowDate_ts >= reportPlus_ts ? '' : 'white' : nowDate_ts >= pReportPlus_ts ? '' : 'white'}`
                 }}
             >
-                <h3> {reportOriginTimeStr === '2022-04-18 00:00:00' ? '無資料' : '芮氏規模'}</h3>
+                <h3> {reportOriginTimeStr === '2022-04-18 00:00:00' ? '目前無資料' : '芮氏規模'}</h3>
 
                 <h3>{report_ts >= pReport_ts ? report[0].mag : pReport[0].mag}</h3>
             </div>

@@ -1,60 +1,56 @@
 import React, { useState, useEffect } from 'react';
-
-import './SimulationReserve.scss'
+import './SimulationReserve.scss';
 import IconButton from '@mui/material/IconButton';
 import { MdDelete } from "react-icons/md";
 import Loading from "../../../components/Loading/Loading.jsx";
 
-const SimulationReserve = () => {
-    //Simulation 訊息
-    const [DB, setDB] = useState(null)
-    // 現在時間
-    const nowTime = new Date().getTime()
+const SimulationReserve = ({ domain }) => {
+    const [DB, setDB] = useState(null);
+    const nowTime = new Date().getTime();
+    const DELETE_API_URL = `http://${domain}:4000/log/simulation/delect`;
 
     useEffect(() => {
-        let getDate = setInterval(() => {
+        const fetchData = async () => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify()
             };
-            fetch(`http://10.100.105.103:4000/get/simulation/delay`, requestOptions)
-                .then(response => response.json())
-                .then(data => {
-                    setDB([...data])
-                });
-        }, 1000)
+            const response = await fetch(`http://${domain}:4000/get/simulation/delay`, requestOptions);
+            const data = await response.json();
+            setDB(data);
+        };
+        const intervalId = setInterval(fetchData, 1000);
+        return () => clearInterval(intervalId);
+    }, [domain]);
 
-        return () => clearInterval(getDate)
-    }, [])
+    if (!DB) return <Loading height={30} />;
 
-    if (DB === null) return <Loading height={30} />
+    const reserveType = DB?.filter(item => item.type === 'Delay');
+    const reserveTimeFilter = reserveType?.filter(item => {
+        const reserveTime = new Date(item.settime).getTime();
+        return reserveTime > nowTime;
+    });
+    const reserverSort = Array.from(reserveTimeFilter || []).sort((a, b) => {
+        const aTime = new Date(a.settime).getTime();
+        const bTime = new Date(b.settime).getTime();
+        return aTime - bTime;
+    });
 
-    let reserveType = DB.filter(item => item.type === 'Delay')
-    let reserveTimeFilter = reserveType.filter(item => {
-        const reserveTime = new Date(item.settime).getTime()
-        return reserveTime > nowTime
-    })
-
-    let reserverSort = reserveTimeFilter.sort((a, b) => {
-        let aTime = new Date(a.settime).getTime()
-        let bTime = new Date(b.settime).getTime()
-        return aTime - bTime
-    })
-
-    //刪除預約
-    const deleteHandler = (id) => {
+    const deleteHandler = async (id) => {
         const deleteUser = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: `${id}` })
+        };
+        try {
+            const response = await fetch(DELETE_API_URL, deleteUser);
+            const data = await response.json();
+            console.log(data);
+        } catch (err) {
+            console.log(err);
         }
-
-        fetch(`http://10.100.105.103:4000/log/simulation/delect`, deleteUser)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-    }
+    };
 
     return (
         <div className='simulation-reserve-container'>

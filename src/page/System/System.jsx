@@ -19,7 +19,9 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
     // 機器還原彈窗
     const [restorePage, setRestorePage] = useState(false)
 
-    const submitHandle = (e) => {
+    const myAuthority = localStorage.getItem('myAuthority');
+
+    const submitHandle1 = (e) => {
         e.preventDefault()
         let check = false
 
@@ -43,18 +45,17 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
             .then(data => console.log(data))
             .catch(err => console.log(err))
 
-        if (check === true) setTimeout((() => window.location.href = '/'), 500);
-
+        if (check === true) setTimeout((() => window.location.href = '/System'), 500);
     }
     return (
         <div className='system-container'>
             <h1 className='system-title'>系統設定</h1>
-            <div className='system-restore-defaults-wrapper'>
+            {myAuthority === 'system-staff' && <div className='system-restore-defaults-wrapper'>
                 <button onClick={() => setRestorePage(true)} className='system-restore-defaults-btn'>機器還原預設</button>
                 <Restore setRestorePage={setRestorePage} restorePage={restorePage} />
-            </div>
+            </div>}
             <div className='system-wrapper'>
-                <form className='system-form' onSubmit={(e) => submitHandle(e)}>
+                <form id="form1" onSubmit={(e) => submitHandle1(e)} className='system-form'>
                     <h3>主頁設定</h3>
                     <div className='system-home-wrapper'>
                         <div>
@@ -95,12 +96,11 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
                         </div>
                     </div>
                     <div className='system-form-wrapper'>
-                        <button className='system-form-btn'>取消</button>
-                        <button className='system-form-btn'>確定</button>
+                        <button type="submit" className='system-form-btn'>更新</button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
 

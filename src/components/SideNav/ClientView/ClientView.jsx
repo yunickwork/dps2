@@ -3,9 +3,7 @@ import { Client_DB } from '../../../db/SideNavDB/Client_DB'
 
 //React Icon
 import { AiOutlineHome, AiFillCaretDown } from "react-icons/ai";
-import { BiMapPin, BiUser } from "react-icons/bi";
-import { BsFileEarmarkText, BsFillGearFill } from "react-icons/bs";
-import { FaExchangeAlt } from "react-icons/fa";
+import { BsFileEarmarkText } from "react-icons/bs";
 import { TbWaveSawTool } from "react-icons/tb";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 
@@ -31,12 +29,8 @@ const ClientView = () => {
                             onClick={(e) => item.pages !== null && e.preventDefault()}
                         >
                             {item.id === '/' && <AiOutlineHome />}
-                            {item.id === 'SelectLocal' && <BiMapPin />}
-                            {item.id === 'Adam' && <FaExchangeAlt />}
                             {item.id === 'Log' && <BsFileEarmarkText />}
                             {item.id === 'Simulation' && <TbWaveSawTool />}
-                            {item.id === 'UserManagement' && <BiUser />}
-                            {item.id === 'System' && <BsFillGearFill />}
                             {item.id === 'About' && <HiOutlineInformationCircle />}
                             {item.name}
                         </Link>
