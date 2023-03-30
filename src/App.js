@@ -28,6 +28,10 @@ import NotFound from './page/NotFound/NotFound';
 import LoginLog from './page/Log/LoginLog/LoginLog';
 import Initial from './page/Initial/Initial';
 
+// Domain
+import { useDomain } from './components/DomainContext/DomainContext.jsx';
+
+
 const App = () => {
   // 導航欄開關
   const [sideStatus, setSideStatus] = useState(false);
@@ -62,7 +66,7 @@ const App = () => {
   let [appCED, setAppCED] = useState(undefined)
 
   // Domain Name
-  const domain = '10.100.105.103';
+  const { domain } = useDomain();
 
   useEffect(() => {
     // API 函數集中存放
@@ -123,11 +127,13 @@ const App = () => {
         // 系統設定
         const systemSettingsData = await api.fetchSystemSettings().then(res => res.json());
         const settings = systemSettingsData[0];
+
         // 系統設定
         setAppGrayColorMin(settings.eqGrayColorMin);
         setAppMqttMin(settings.mqttMin);
         setAppLoginCount(settings.loginCount);
         setAppLockMin(settings.lockMin);
+
         // 系統資訊
         setAppInitialSetup(settings.initialSetup);
         setAppUnitName(settings.unitName);
@@ -140,7 +146,7 @@ const App = () => {
     }
 
     fetchData();
-  }, [])
+  }, [domain])
 
   // 需要填寫初始化
   if (appInitialSetup === 'false') {
@@ -179,7 +185,7 @@ const App = () => {
             {/* 移報設定頁面 */}
             {myAuthority === 'system-staff' ? <Route path='/Adam' element={<Adam />} /> : <Route path='*' element={<NotFound />} />}
             {/* 模擬發報頁面 */}
-            <Route path='/Simulation' element={<Simulation domain={domain} />} />
+            <Route path='/Simulation' element={<Simulation />} />
             {/* 使用者管理頁面 */}
             {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/UserManagement' element={<UserManagement />} /> : <Route path='*' element={<NotFound />} />}
             {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/UserSignUp' element={<UserSignUp />} /> : <Route path='*' element={<NotFound />} />}

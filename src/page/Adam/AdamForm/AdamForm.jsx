@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import { DOArrayDB } from '../../../db/DOArray.js'
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
+import { useDomain } from '../../../components/DomainContext/DomainContext.jsx';
 
 const AdamForm = () => {
+    // Domain
+    const { domain } = useDomain();
+    // Adam 設定
     const [settingDB, setSettingDB] = useState([...DOArrayDB])
+    // 傳送表單
     const submitHandle = (e) => {
         e.preventDefault()
-        fetch(`http://10.100.105.103:4000/settings/eqcheck`, { method: "GET" })
+        fetch(`http://${domain}:4000/settings/eqcheck`, { method: "GET" })
             .then(res => res.json())
             .then(eqCheck => {
                 if (eqCheck === 'nok') {
@@ -22,9 +27,9 @@ const AdamForm = () => {
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(DOArrayDB)
                         }
-                        return fetch(`http://10.100.105.103:4000/settings/Adam_settings`, postData)
+                        return fetch(`http://${domain}:4000/settings/Adam_settings`, postData)
                             .then(response => response.json())
-                            // .then(data => console.log(data))
+                        // .then(data => console.log(data))
                     } else {
                         return Promise.reject('使用者取消傳送資料')
                     }
@@ -37,7 +42,7 @@ const AdamForm = () => {
                 console.log(e)
             })
     }
-
+    // 換模式
     const changeType = (item, value) => {
         item.type = value
         if (item.type === 'Pulse') {
@@ -47,12 +52,12 @@ const AdamForm = () => {
         }
         setSettingDB([...DOArrayDB])
     }
-
+    // 換地震級數
     const changeLevel = (level, value) => {
         level.eq_level = value
         setSettingDB([...DOArrayDB])
     }
-
+    // 換 ms 時間
     const changeMs = (ms, value) => {
         ms.ms = value
         setSettingDB([...DOArrayDB])

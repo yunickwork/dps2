@@ -19,7 +19,7 @@ const SideNav = ({ sideStatus }) => {
                 {myAuthority === 'system-staff' && <SystemManagerView />}
             </div>
             <div className='sidenav-version'>
-                <h3>v1.0.0</h3>
+                <h3>v1.0.3</h3>
             </div>
         </aside>
     )

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Loading from '../../../components/Loading/Loading'
+import { useDomain } from '../../../components/DomainContext/DomainContext.jsx';
 
 const AdamStatus = () => {
+    // Domain
+    const { domain } = useDomain();
+
     // Get 資料
     let [type, setType] = useState(null)
     let [eq_Level, setEQ_Level] = useState(null)
@@ -15,7 +19,7 @@ const AdamStatus = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/settings/Adam/EQ_Level`, getEQ_Level)
+        fetch(`http://${domain}:4000/settings/Adam/EQ_Level`, getEQ_Level)
             .then(response => response.json())
             .then(data => setEQ_Level([...data]))
             .catch(err => console.log(err))
@@ -27,7 +31,7 @@ const AdamStatus = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/settings/Adam/Type`, getType)
+        fetch(`http://${domain}:4000/settings/Adam/Type`, getType)
             .then(response => response.json())
             .then(data => setType([...data]))
             .catch(err => console.log(err))
@@ -39,11 +43,11 @@ const AdamStatus = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/settings/Adam/MS`, getMS)
+        fetch(`http://${domain}:4000/settings/Adam/MS`, getMS)
             .then(response => response.json())
             .then(data => setMS([...data]))
             .catch(err => console.log(err))
-    }, [])
+    }, [domain])
 
     if (type === null) return <Loading height={50} />
     if (eq_Level === null) return <Loading height={50} />

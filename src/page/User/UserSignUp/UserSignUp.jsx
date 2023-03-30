@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox';
 import './UserSignUp.scss';
-
+//domain
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 const UserSignUp = () => {
+    // Domain
+    const { domain } = useDomain();
     //權限
     const myAuthority = localStorage.getItem('myAuthority')
     //帳號
@@ -42,11 +45,11 @@ const UserSignUp = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/userDB`, getUserData)
+        fetch(`http://${domain}:4000/userDB`, getUserData)
             .then(response => response.json())
             .then(data => setAlready([...data]))
             .catch(err => console.log(err))
-    }, [])
+    }, [domain])
 
     //表單傳送動作
     const submitHandle = (e) => {
@@ -99,7 +102,7 @@ const UserSignUp = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/userDB`, getUserData)
+        fetch(`http://${domain}:4000/userDB`, getUserData)
             .then(response => response.json())
             .then(data => setAlready([...data]))
             .catch(err => console.log(err))
@@ -111,7 +114,7 @@ const UserSignUp = () => {
             body: JSON.stringify({ user: `${user.toLowerCase()}`, pwd: `${pwd}`, authority: `${authority}`, name: `${name}`, phone: `${phone}`, email: `${email}`, location: `${location}`, needChangePwd: `${needChangePwd}` })
         };
 
-        fetch(`http://10.100.105.103:4000/user/signUp`, requestOptions)
+        fetch(`http://${domain}:4000/user/signUp`, requestOptions)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))

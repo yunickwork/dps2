@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import './System.scss'
 import Restore from './Restore/Restore.jsx';
-
+//domain
+import { useDomain } from '../../components/DomainContext/DomainContext';
 const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
+    // Domain
+    const { domain } = useDomain();
     // 地震便灰色時間設定
     const [grayColorMin, setGrayColorMin] = useState(Number(appGrayColorMin))
     const [grayColorMinCheck, setGrayColorMinCheck] = useState(false)
@@ -40,7 +43,7 @@ const System = ({ appGrayColorMin, appLoginCount, appLockMin }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ grayColorMin: grayColorMin, loginCount: loginCount, lockMin: loginLockMin })
         }
-        fetch(`http://10.100.105.103:4000/system/setting/update`, UpdateSystemSetting)
+        fetch(`http://${domain}:4000/system/setting/update`, UpdateSystemSetting)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))

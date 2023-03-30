@@ -5,8 +5,11 @@ import Map from '../../components/Map/Map.jsx'
 import EqReport from './EqReport/EqReport'
 import DpsMqtt from './DpsMqtt/DpsMqtt'
 import Loading from '../../components/Loading/Loading'
+import { useDomain } from '../../components/DomainContext/DomainContext.jsx';
 
 const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPReport, appGrayColorMin, appMqttMin }) => {
+    // Domain
+    const { domain } = useDomain();
 
     // 複製城市 & 鄉鎮資料
     const taiwanCityTown = [...TaiwanCityTown_DB1]
@@ -41,7 +44,7 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify()
             };
-            fetch(`http://10.100.105.103:4000/data/area_data`, requestOptions)
+            fetch(`http://${domain}:4000/data/area_data`, requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     setEqTownEvt(data)
@@ -49,7 +52,7 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
         }, 5000)
         return () => clearInterval(getAreaData)
 
-    }, []);
+    }, [domain]);
 
     // 如果地震事件等於 undefined
     if (appMqtt === undefined) return

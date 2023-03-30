@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import Checkbox from '@mui/material/Checkbox';
+//domain
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
 const SelectTown = ({ towns }) => {
+    // Domain
+    const { domain } = useDomain();
+
     const [loading, setLoading] = useState(false)
 
     const submitHandle = (e) => {
@@ -31,7 +36,7 @@ const SelectTown = ({ towns }) => {
             body: JSON.stringify({ area_code: JSON.stringify(submitDB) })
         };
 
-        fetch(`http://10.100.105.103:4000/settings/Listen_towns`, requestOptions)
+        fetch(`http://${domain}:4000/settings/Listen_towns`, requestOptions)
             .then(response => response.json())
             .then(data => console.log('傳送成功'))
             .catch(err => console.log(err))

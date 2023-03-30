@@ -19,7 +19,13 @@ import CwbEqLogList from './CwbEqLogList';
 // Loading Page
 import Loading from '../../../components/Loading/Loading'
 
+import { useDomain } from '../../../components/DomainContext/DomainContext';
+
+
 const CwbEqLog = () => {
+    // Domain
+    const { domain } = useDomain();
+
     // Log資料
     const [logDB, setLogDB] = useState(null)
 
@@ -47,11 +53,11 @@ const CwbEqLog = () => {
             body: JSON.stringify({ year: new Date().getFullYear(), month: '' })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Report_data/Log`, reportHTTP)
+        fetch(`http://${domain}:4000/datas/Report_data/Log`, reportHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data));
 
-    }, [])
+    }, [domain])
 
 
     // 預設頁數
@@ -85,7 +91,7 @@ const CwbEqLog = () => {
             body: JSON.stringify({ year: year - 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
+        fetch(`http://${domain}:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -101,7 +107,7 @@ const CwbEqLog = () => {
             body: JSON.stringify({ year: year + 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
+        fetch(`http://${domain}:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -117,7 +123,7 @@ const CwbEqLog = () => {
             body: JSON.stringify({ year: year, month: event.target.value })
         };
 
-        fetch(`http://10.100.105.103:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
+        fetch(`http://${domain}:4000/${selectReport === false ? 'datas/Report_data/Log' : 'datas/PReport_data/Log'}`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -132,7 +138,7 @@ const CwbEqLog = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ year: year, month: selectMonth })
         };
-        fetch(`http://10.100.105.103:4000/${path}`, logHTTP)
+        fetch(`http://${domain}:4000/${path}`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB([...data]))
             .catch(err => console.log(err))

@@ -7,8 +7,14 @@ import TextField from '@mui/material/TextField';
 import NativeSelect from '@mui/material/NativeSelect';
 import NotFound from '../../NotFound/NotFound';
 
+//domain
+import { useDomain } from '../../../components/DomainContext/DomainContext';
+
 
 const UserPage = () => {
+    // Domain
+    const { domain } = useDomain();
+
     const myAuthority = localStorage.getItem('myAuthority')
     const myId = localStorage.getItem('myId')
 
@@ -58,7 +64,7 @@ const UserPage = () => {
             body: JSON.stringify({ id: userId })
         }
 
-        fetch(`http://10.100.105.103:4000/user/information`, getUserInformation)
+        fetch(`http://${domain}:4000/user/information`, getUserInformation)
             .then(response => response.json())
             .then(data => {
                 setUserDB([...data])
@@ -71,7 +77,7 @@ const UserPage = () => {
             })
             .catch(err => console.log(err))
 
-    }, [userId])
+    }, [userId, domain])
 
     //權限判斷
     if (myAuthority === 'client' && myId !== userId) return <NotFound />
@@ -121,7 +127,7 @@ const UserPage = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: userId, name: name, pwd: pwd, authority: authority, phone: phone, email: email, location: location, needChangePwd: 'false' })
         }
-        fetch(`http://10.100.105.103:4000/user/update/information`, UpdateUserInformation)
+        fetch(`http://${domain}:4000/user/update/information`, UpdateUserInformation)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))

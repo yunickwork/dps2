@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './Simulation.scss';
 import SimulationReserve from './SimulationReserve/SimulationReserve';
 import Audio from '../../components/Audio/Audio';
+//domain
+import { useDomain } from '../../components/DomainContext/DomainContext';
 
-const Simulation = ({ domain }) => {
+const Simulation = () => {
+    // Domain
+    const { domain } = useDomain();
     // 使用者名稱
     const myName = localStorage.getItem('myName');
     // 選擇地震震級
@@ -147,7 +151,7 @@ const Simulation = ({ domain }) => {
                 </div>
             </form >
 
-            <SimulationReserve nowFullYearDayDate={nowFullYearDayDate} domain={domain} />
+            <SimulationReserve nowFullYearDayDate={nowFullYearDayDate} />
         </div >
     )
 }

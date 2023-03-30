@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import './CwbEqLog.scss'
 import { AiFillFileText } from "react-icons/ai";
 import CwbEqLogBox from './CwbEqLogBox';
-
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
 const CwbEqLogList = ({ rangePageLogDB, page, rowsPerPage, logDBLength, selectReport }) => {
+    // Domain
+    const { domain } = useDomain();
+
     const [openBox, setOpenBox] = useState(false)
     const [eqIdDB, setEqIdDB] = useState(null)
 
@@ -16,7 +19,7 @@ const CwbEqLogList = ({ rangePageLogDB, page, rowsPerPage, logDBLength, selectRe
             body: JSON.stringify({ id: id, selectReport: `${selectReport === false ? '氣象局報告' : '氣象局速報'}` })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Cwb/Log/MessageID`, eqIdHTTP)
+        fetch(`http://${domain}:4000/datas/Cwb/Log/MessageID`, eqIdHTTP)
             .then(response => response.json())
             .then(data => setEqIdDB(data))
             .catch(err => console.log(err))

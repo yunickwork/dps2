@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import './Login.scss'
 import Loading from '../../components/Loading/Loading.jsx'
+//domain
+import { useDomain } from '../../components/DomainContext/DomainContext';
 const Login = ({ appLoginCount, appLockMin }) => {
-
+  // Domain
+  const { domain } = useDomain();
   //抓取帳號
   const [user, setUser] = useState(null)
   const [pwd, setPwd] = useState(null)
@@ -36,7 +39,7 @@ const Login = ({ appLoginCount, appLockMin }) => {
       body: JSON.stringify({ user: `${user} `, pwd: `${pwd} ` })
     }
 
-    fetch(`http://10.100.105.103:4000/user/login`, pushSubmit)
+    fetch(`http://${domain}:4000/user/login`, pushSubmit)
       .then(response => response.json())
       .then(data => {
         if (data.length === 0) {

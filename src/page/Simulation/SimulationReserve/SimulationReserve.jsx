@@ -3,8 +3,12 @@ import './SimulationReserve.scss';
 import IconButton from '@mui/material/IconButton';
 import { MdDelete } from "react-icons/md";
 import Loading from "../../../components/Loading/Loading.jsx";
+//domain
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
-const SimulationReserve = ({ domain }) => {
+const SimulationReserve = () => {
+    // Domain
+    const { domain } = useDomain();
     const [DB, setDB] = useState(null);
     const nowTime = new Date().getTime();
     const DELETE_API_URL = `http://${domain}:4000/log/simulation/delect`;

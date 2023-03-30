@@ -4,13 +4,17 @@ import IconButton from '@mui/material/IconButton';
 import { FaBars } from "react-icons/fa";
 import { RiUserShared2Fill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import { useDomain } from '../DomainContext/DomainContext.jsx';
 
 const Navbar = ({ sideStatus, setSideStatus }) => {
-    
+    // 使用者名稱
     const myName = localStorage.getItem('myName')
+    // 使用者ID
     const id = localStorage.getItem('myId')
+    // 使用者帳戶
     const myUser = localStorage.getItem('myUser')
-
+    const { domain } = useDomain();
+    // 登出
     const signOutHandle = () => {
         const logHTTP = {
             method: 'POST',
@@ -18,7 +22,7 @@ const Navbar = ({ sideStatus, setSideStatus }) => {
             body: JSON.stringify({ name: myName, user: myUser })
         };
 
-        fetch(`http://10.100.105.103:4000/user/sign-out`, logHTTP)
+        fetch(`http://${domain}/user/sign-out`, logHTTP)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))

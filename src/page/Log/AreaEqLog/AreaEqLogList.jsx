@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import './AreaEqLog.scss'
 import { AiFillFileText } from "react-icons/ai";
 import AreaEqLogBox from './AreaEqLogBox';
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
 const AreaEqLogList = ({ rangePageLogDB, page, rowsPerPage, logDBLength, detailSwitch }) => {
-
+    // Domain
+    const { domain } = useDomain();
     const [openBox, setOpenBox] = useState(false)
     const [messageIdDB, setMessageIdDB] = useState([])
     const [eqEvent, setEqEvent] = useState([])
@@ -17,7 +19,7 @@ const AreaEqLogList = ({ rangePageLogDB, page, rowsPerPage, logDBLength, detailS
             body: JSON.stringify({ messageID: item.messageID })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Area_data/Log/MessageId`, messageIdHTTP)
+        fetch(`http://${domain}:4000/datas/Area_data/Log/MessageId`, messageIdHTTP)
             .then(response => response.json())
             .then(data => setMessageIdDB(data))
             .catch(err => console.log(err))

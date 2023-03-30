@@ -8,8 +8,12 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { MdOutlineClose } from "react-icons/md";
 import Loading from '../../../components/Loading/Loading.jsx'
+//domain
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
 const Restore = ({ setRestorePage, restorePage }) => {
+    // Domain
+    const { domain } = useDomain();
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [radioValue, setRadioValue] = useState('option-1');
@@ -48,7 +52,7 @@ const Restore = ({ setRestorePage, restorePage }) => {
         // 啟動 loading 畫面
         setLoading(true);
 
-        fetch(`http://10.100.105.103:4000/system/reset`, resetHttp)
+        fetch(`http://${domain}:4000/system/reset`, resetHttp)
             .then(response => response.json())
             .then(data => {
                 console.log(data);

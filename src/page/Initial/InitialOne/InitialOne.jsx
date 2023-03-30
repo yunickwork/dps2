@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { AiOutlineReload } from "react-icons/ai";
 import TextField from '@mui/material/TextField';
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 
 const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setTime, timeCheck, setMac, mac, setMqttAccount, mqttAccountCheck, setMqttPwd, mqttPwdCheck, setCwbAccount, setCwbPwd }) => {
+    // Domain
+    const { domain } = useDomain();
 
     useEffect(() => {
-        fetch(`http://10.100.105.103:4000/initial/get/mac`, { method: "GET" })
+        fetch(`http://${domain}:4000/initial/get/mac`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 setMac(data[0].ID)
@@ -13,11 +16,11 @@ const InitialOne = ({ currentCount, setName, nameCheck, setDate, dateCheck, setT
             .catch(e => {
                 console.log(e);
             })
-    }, [setMac])
+    }, [setMac, domain])
 
     const getMacHandler = (e) => {
         e.preventDefault();
-        fetch(`http://10.100.105.103:4000/initial/get/mac`, { method: "GET" })
+        fetch(`http://${domain}:4000/initial/get/mac`, { method: "GET" })
             .then(res => res.json())
             .then(data => {
                 setMac(data[0].ID)

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Loading from '../../../components/Loading/Loading';
+import { useDomain } from '../../../components/DomainContext/DomainContext.jsx';
 
 const EqReport = ({ appGrayColorMin, nowDate_ts, appCwbReport, appCwbPReport }) => {
+    // Domain
+    const { domain } = useDomain();
+
     // 氣象局地震報告
     const [report, setReport] = useState(null);
     const [pReport, setPRport] = useState(null);
@@ -17,7 +21,7 @@ const EqReport = ({ appGrayColorMin, nowDate_ts, appCwbReport, appCwbPReport }) 
                 body: JSON.stringify()
             };
 
-            fetch(`http://10.100.105.103:4000/data/Report`, reportHTTP)
+            fetch(`http://${domain}:4000/data/Report`, reportHTTP)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0) {
@@ -44,7 +48,7 @@ const EqReport = ({ appGrayColorMin, nowDate_ts, appCwbReport, appCwbPReport }) 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify()
             };
-            fetch(`http://10.100.105.103:4000/data/PReport`, pReportHTTP)
+            fetch(`http://${domain}:4000/data/PReport`, pReportHTTP)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0) {
@@ -67,7 +71,7 @@ const EqReport = ({ appGrayColorMin, nowDate_ts, appCwbReport, appCwbPReport }) 
         }, 10000)
 
         return () => clearInterval(getReport)
-    }, []);
+    }, [domain]);
 
 
     // 氣象局報告為null折返回

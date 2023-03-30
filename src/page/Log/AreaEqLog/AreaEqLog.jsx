@@ -1,21 +1,20 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useReactToPrint } from 'react-to-print';
-
 import Loading from '../../../components/Loading/Loading.jsx'
-
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
-
 import TablePagination from '@mui/material/TablePagination';
 import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-
 import AreaEqLogList from './AreaEqLogList.jsx';
-
+import { useDomain } from '../../../components/DomainContext/DomainContext';
 import './AreaEqLog.scss'
 import '../Log.scss'
 
 const AreaEqLog = () => {
+    // Domain
+    const { domain } = useDomain();
+
     // 設定 & 資料
     const [logDB, setLogDB] = useState(null)
     const [year, setYear] = useState(new Date().getFullYear())
@@ -39,13 +38,13 @@ const AreaEqLog = () => {
             body: JSON.stringify({ year: new Date().getFullYear(), month: '' })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Area_data/Log`, logHTTP)
+        fetch(`http://${domain}:4000/datas/Area_data/Log`, logHTTP)
             .then(response => response.json())
             .then(data => {
                 setLogDB(data.sort((a, b) => b.eventtime.replace(/[^A-Z0-9]/ig, "") - a.eventtime.replace(/[^A-Z0-9]/ig, "")))
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [domain])
 
     // 預設頁數
     const [page, setPage] = React.useState(0);
@@ -80,7 +79,7 @@ const AreaEqLog = () => {
             body: JSON.stringify({ year: year - 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Area_data/Log`, logHTTP)
+        fetch(`http://${domain}:4000/datas/Area_data/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -96,7 +95,7 @@ const AreaEqLog = () => {
             body: JSON.stringify({ year: year + 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Area_data/Log`, logHTTP)
+        fetch(`http://${domain}:4000/datas/Area_data/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -112,7 +111,7 @@ const AreaEqLog = () => {
             body: JSON.stringify({ year: year, month: event.target.value })
         };
 
-        fetch(`http://10.100.105.103:4000/datas/Area_data/Log`, logHTTP)
+        fetch(`http://${domain}:4000/datas/Area_data/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))

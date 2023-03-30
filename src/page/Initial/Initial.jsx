@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import './Initial.scss'
 import InitialOne from './InitialOne/InitialOne'
 import InitialTwo from './InitialTwo/InitialTwo'
+import { useDomain } from '../../components/DomainContext/DomainContext.jsx';
 
 const Initial = () => {
+  // Domain
+  const { domain } = useDomain();
 
   // ***** 表單一 *****//
 
@@ -121,7 +124,7 @@ const Initial = () => {
       })
     };
 
-    fetch(`http://10.100.105.103:4000/initial/formOne`, form_one_http)
+    fetch(`http://${domain}:4000/initial/formOne`, form_one_http)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
@@ -133,7 +136,7 @@ const Initial = () => {
       body: JSON.stringify({ area_code: JSON.stringify(submitTowns) })
     };
 
-    fetch(`http://10.100.105.103:4000/initial/Alarm_towns`, alert_towns_http)
+    fetch(`http://${domain}:4000/initial/Alarm_towns`, alert_towns_http)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))

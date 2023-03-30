@@ -20,7 +20,12 @@ import '../Log.scss'
 import Loading from '../../../components/Loading/Loading'
 import LoginLogList from './LoginLogList';
 
+import { useDomain } from '../../../components/DomainContext/DomainContext';
+
 const LoginLog = () => {
+    // Domain
+    const { domain } = useDomain();
+
     // Log資料
     const [logDB, setLogDB] = useState(null)
 
@@ -45,11 +50,11 @@ const LoginLog = () => {
             body: JSON.stringify({ year: new Date().getFullYear(), month: '' })
         };
 
-        fetch(`http://10.100.105.103:4000/logs/Login/Log`, reportHTTP)
+        fetch(`http://${domain}:4000/logs/Login/Log`, reportHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data));
 
-    }, [])
+    }, [domain])
 
     // 預設頁數
     const [page, setPage] = React.useState(0);
@@ -82,7 +87,7 @@ const LoginLog = () => {
             body: JSON.stringify({ year: year - 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/logs/Login/Log`, logHTTP)
+        fetch(`http://${domain}:4000/logs/Login/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -98,7 +103,7 @@ const LoginLog = () => {
             body: JSON.stringify({ year: year + 1, month: selectMonth })
         };
 
-        fetch(`http://10.100.105.103:4000/logs/Login/Log`, logHTTP)
+        fetch(`http://${domain}:4000/logs/Login/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))
@@ -114,7 +119,7 @@ const LoginLog = () => {
             body: JSON.stringify({ year: year, month: event.target.value })
         };
 
-        fetch(`http://10.100.105.103:4000/logs/Login/Log`, logHTTP)
+        fetch(`http://${domain}:4000/logs/Login/Log`, logHTTP)
             .then(response => response.json())
             .then(data => setLogDB(data))
             .catch(err => console.log(err))

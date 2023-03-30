@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react'
 import './UserManagement.scss'
 import { BsPencilSquare } from "react-icons/bs";
 import { Link } from 'react-router-dom';
+//domain
+import { useDomain } from '../../components/DomainContext/DomainContext';
 
 const UserManagement = () => {
+    // Domain
+    const { domain } = useDomain();
     // 權限
     const myAuthority = localStorage.getItem('myAuthority')
-    
+
     // 所有使用者
     const [userDB, setUserDB] = useState(null)
 
@@ -20,11 +24,11 @@ const UserManagement = () => {
             body: JSON.stringify()
         }
 
-        fetch(`http://10.100.105.103:4000/show/user`, getData)
+        fetch(`http://${domain}:4000/show/user`, getData)
             .then(response => response.json())
             .then(data => setUserDB(data))
             .catch(err => console.log(err))
-    }, [])
+    }, [domain])
 
     if (userDB === null) return
 
@@ -41,7 +45,7 @@ const UserManagement = () => {
             body: JSON.stringify({ id: `${id}` })
         }
 
-        fetch(`http://10.100.105.103:4000/delect/user`, deleteUser)
+        fetch(`http://${domain}:4000/delect/user`, deleteUser)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err))
@@ -85,7 +89,7 @@ const UserManagement = () => {
                                                 <BsPencilSquare />
                                                 <div className='user-management-users-edit-wrapper'>
                                                     <div>
-                                                        <Link onClick={() => localStorage.setItem('assignID',user.id)} to={`/UserPage/${user.id}`}>編輯</Link>
+                                                        <Link onClick={() => localStorage.setItem('assignID', user.id)} to={`/UserPage/${user.id}`}>編輯</Link>
                                                         <button onClick={() => deleteHandler(user.id)}>刪除</button>
                                                     </div>
                                                 </div>

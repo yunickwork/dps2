@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './DpsMqtt.scss'
+import { useDomain } from '../../../components/DomainContext/DomainContext.jsx';
 
 const DpsMqtt = ({ appMqtt, appMqttMin }) => {
+    // Domain
+    const { domain } = useDomain();
 
     // MQTT 狀態
     const [mqtt, setMqtt] = useState(undefined)
@@ -12,7 +15,7 @@ const DpsMqtt = ({ appMqtt, appMqttMin }) => {
         let min = 1 * 1000 * 60 * appMqttMin
 
         let getMqttState = setInterval(() => {
-            fetch(`http://10.100.105.103:4000/logs/connect`, { method: "GET" })
+            fetch(`http://${domain}:4000/logs/connect`, { method: "GET" })
                 .then(res => res.json())
                 .then(data => {
                     if (data.length === 0) {
@@ -28,7 +31,7 @@ const DpsMqtt = ({ appMqtt, appMqttMin }) => {
         }, min)
 
         return () => clearInterval(getMqttState)
-    }, [appMqttMin])
+    }, [appMqttMin, domain])
 
     if (mqtt === undefined) {
         if (appMqtt.length === 0) {
