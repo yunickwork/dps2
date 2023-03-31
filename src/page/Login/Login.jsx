@@ -9,48 +9,51 @@ const Login = ({ appLoginCount, appLockMin }) => {
   //抓取帳號
   const [user, setUser] = useState(null)
   const [pwd, setPwd] = useState(null)
-  const [load, setLoad] = useState('')
+  const [loading, setLoading] = useState('')
+  // eslint-disable-next-line no-unused-vars
   const [count, setCount] = useState(0)
-  let currentCount = parseInt(localStorage.getItem('myCount')) || 0;
 
   const submitHandle = (e) => {
     e.preventDefault()
-    if (user === null || pwd === null) return alert('帳號密碼不得為空')
-    let lockTime_ts = new Date().getTime() + 1 * 1000 * 60 * appLockMin
 
-    if (appLoginCount <= currentCount && localStorage.getItem('myLock') !== 0) {
-      console.log('', count)
-      localStorage.setItem('myLock', lockTime_ts);
-      currentCount = 0
-    }
+    let currentCount = parseInt(sessionStorage.getItem('myCount')) || 0;
 
-    if (lockTime_ts <= new Date().getTime()) {
-      localStorage.removeItem('myLock');
-    }
-
-    if (localStorage.getItem('myLock') >= new Date().getTime()) {
-      currentCount = 0
-      return alert(`登入系統上鎖至 ${new Date().toLocaleDateString()} ${new Date(Number(localStorage.getItem('myLock'))).toLocaleTimeString()}, 請稍後登入`)
-    }
-
-    const pushSubmit = {
+    const pushLoginSubmit = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user: `${user} `, pwd: `${pwd} ` })
     }
 
-    fetch(`http://${domain}:4000/user/login`, pushSubmit)
+    const lockTime_ts = new Date().getTime() + 1 * 1000 * 60 * appLockMin;
+
+    if (localStorage.getItem('myLock') && lockTime_ts <= new Date().getTime()) {
+      localStorage.removeItem('myLock');
+    }
+
+    if (localStorage.getItem('myLock') && localStorage.getItem('myLock') >= new Date().getTime()) {
+      return alert(`登入系統上鎖至 ${new Date().toLocaleDateString()} ${new Date(Number(localStorage.getItem('myLock'))).toLocaleTimeString()}, 請稍後登入`)
+    }
+
+    fetch(`http://${domain}:4000/user/login`, pushLoginSubmit)
       .then(response => response.json())
       .then(data => {
         if (data.length === 0) {
-          localStorage.setItem('myCount', currentCount + 1);
-          setCount(localStorage.getItem('myCount') + 1)
-          return alert(`檢察帳號密碼有誤 ${localStorage.getItem('myCount')} 次`)
+          currentCount += 1;
+          sessionStorage.setItem('myCount', currentCount);
+          setCount(currentCount);
+          alert(`檢察帳號密碼是否有誤 ${currentCount} 次`);
+
+          if (appLoginCount <= currentCount) {
+            localStorage.setItem('myLock', lockTime_ts);
+          }
+
+          return;
         }
 
         // 登入等待
-        setLoad(null)
-        if (data[0].token !== undefined) {
+        setLoading(null)
+
+        if (data[0].token !== null) {
           localStorage.setItem('myToken', data[0].token);
           localStorage.setItem('myName', data[0].name);
           localStorage.setItem('myId', data[0].id);
@@ -75,6 +78,11 @@ const Login = ({ appLoginCount, appLockMin }) => {
             // 將使用者導向首頁
             window.location.href = '/';
           }
+        } else if (data[0].token === null) {
+          localStorage.clear();
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 5000); // 5秒後跳轉
         }
       })
       .catch(err => alert(err + ' 連線異常請檢察網路問題 or 資料庫 or Api'))
@@ -82,7 +90,6 @@ const Login = ({ appLoginCount, appLockMin }) => {
 
   return (
     <div className="login-container">
-
       <div className='login-wrapper'>
         <h1 className='login-title'>地震速報系統</h1>
         <form className='login-form-wrapper' onSubmit={submitHandle}>
@@ -95,8 +102,8 @@ const Login = ({ appLoginCount, appLockMin }) => {
             <input type="password" onChange={(e) => setPwd(e.target.value)} />
           </div>
           <div className='login-submit-wrapper'>
-            {load !== null && <button className='login-submit-btn' type="submit"> 登入 </button>}
-            {load === null && <Loading height={20} />}
+            {loading !== null && <button className='login-submit-btn' type="submit"> 登入 </button>}
+            {loading === null && <Loading height={20} />}
           </div>
         </form>
       </div>

@@ -27,6 +27,7 @@ import About from './page/About/About';
 import NotFound from './page/NotFound/NotFound';
 import LoginLog from './page/Log/LoginLog/LoginLog';
 import Initial from './page/Initial/Initial';
+import Test from './page/Test/Test';
 
 // Domain
 import { useDomain } from './components/DomainContext/DomainContext.jsx';
@@ -176,7 +177,7 @@ const App = () => {
         <Navbar sideStatus={sideStatus} setSideStatus={setSideStatus} />
         {/* 側邊欄 */}
         <SideNav sideStatus={sideStatus} />
-        <section className='app-page-wrapper'>
+        <section style={{ marginLeft: `${sideStatus === true ? '300px' : '0px'}` }} className='app-page-wrapper'>
           <Routes>
             {/* 首頁 */}
             <Route path='/' element={<Home appMqttMin={appMqttMin} appGrayColorMin={appGrayColorMin} listenCity={listenCity} listenTowns={listenTowns} appMqtt={appMqtt} eqData={eqData} appCwbReport={appCwbReport} appCwbPReport={appCwbPReport} />} />
@@ -199,6 +200,8 @@ const App = () => {
             {myAuthority === 'system-staff' || myAuthority === 'client-system-staff' ? <Route path='/System' element={<System appGrayColorMin={appGrayColorMin} appMqttMin={appMqttMin} appLoginCount={appLoginCount} appLockMin={appLockMin} />} /> : <Route path='*' element={<NotFound />} />}
             {/* 關於系統頁面 */}
             <Route path='/About' element={<About appUnitName={appUnitName} appMachineName={appMachineName} appMachineDate={appMachineDate} appCED={appCED} />} />
+            {/* 測試工程版 */}
+            <Route path='/Test' element={<Test />} />
             {/* Not Found 頁面 */}
             <Route path='*' element={<NotFound />} />
           </Routes>

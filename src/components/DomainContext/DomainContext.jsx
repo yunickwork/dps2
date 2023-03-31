@@ -4,6 +4,7 @@ const DomainContext = createContext(null);
 
 export const useDomain = () => useContext(DomainContext);
 
+//window.location.hostname
 export const DomainProvider = ({ children }) => {
     const [domain, setDomain] = useState('10.100.105.103');
 

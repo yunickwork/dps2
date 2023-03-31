@@ -3,7 +3,7 @@ import { SystemManager_DB } from '../../../db/SideNavDB/SystemManager_DB'
 
 //React Icon
 import { AiOutlineHome, AiFillCaretDown } from "react-icons/ai";
-import { BiMapPin, BiUser } from "react-icons/bi";
+import { BiMapPin, BiUser, BiWrench } from "react-icons/bi";
 import { BsFileEarmarkText, BsFillGearFill, BsBroadcastPin } from "react-icons/bs";
 import { FaExchangeAlt } from "react-icons/fa";
 import { TbWaveSawTool } from "react-icons/tb"
@@ -40,6 +40,7 @@ const SystemManagerView = () => {
                             {item.id === 'UserManagement' && <BiUser />}
                             {item.id === 'System' && <BsFillGearFill />}
                             {item.id === 'About' && <HiOutlineInformationCircle />}
+                            {item.id === 'Test' && <BiWrench />}
                             {item.name}
                         </Link>
                         {item.pages !== null && <i><AiFillCaretDown /></i>}

@@ -1,1 +1,1 @@
-# REACT 地震 UI
+# React UI

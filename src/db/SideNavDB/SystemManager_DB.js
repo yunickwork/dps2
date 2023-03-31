@@ -56,5 +56,10 @@ export const SystemManager_DB = [
         id: 'About',
         name: '關於系統',
         pages: null,
+    },
+    {
+        id: 'Test',
+        name: '測試工程版',
+        pages: null,
     }
 ]
