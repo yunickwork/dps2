@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Home.scss'
+// 這個是為惹抓取鄉鎮中文名稱
 import { TaiwanCityTown_DB1 } from '../../db/TaiwanCityTownDB/TaiwanCityTown_DB1.js'
 import Map from '../../components/Map/Map.jsx'
 import EqReport from './EqReport/EqReport'
@@ -7,7 +8,17 @@ import DpsMqtt from './DpsMqtt/DpsMqtt'
 import Loading from '../../components/Loading/Loading'
 import { useDomain } from '../../components/DomainContext/DomainContext.jsx';
 
-const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPReport, appGrayColorMin, appMqttMin }) => {
+// mui
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPReport, appGrayColorMin, appMqttMin, appCED, setCeoOnClose, ceoOnClose }) => {
+    // appCED
+    const appCED_ts = new Date(appCED).getTime()
+
+    // 現在時間
+    const now_ts = new Date().getTime()
+
     // Domain
     const { domain } = useDomain();
 
@@ -137,6 +148,31 @@ const Home = ({ listenCity, listenTowns, appMqtt, eqData, appCwbReport, appCwbPR
 
     return (
         <div className='home-container'>
+            {/* 合約日過期判斷 */}
+            <div className="home-ced-alert">
+                <Stack sx={{ width: "100%" }} spacing={2}>
+                    {!ceoOnClose && (
+                        <>
+                            {now_ts >= appCED_ts ? (
+                                <Alert
+                                    variant="filled"
+                                    onClose={() => setCeoOnClose(true)}
+                                    severity="error"
+                                >
+                                    合約已到期 : {appCED}
+                                </Alert>
+                            ) : now_ts >= appCED_ts - 30 * 24 * 60 * 60 * 1000 ? (
+                                <Alert
+                                    variant="filled"
+                                    severity="info"
+                                >
+                                    合約到期日剩餘時間 {Math.ceil((appCED_ts - now_ts) / (24 * 60 * 60 * 1000))} 天
+                                </Alert>
+                            ) : null}
+                        </>
+                    )}
+                </Stack>
+            </div>
             <div className='home-wrapper'>
                 <div className='home-map'>
                     <div className='home-location-wrapper'>

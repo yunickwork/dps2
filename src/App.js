@@ -34,6 +34,9 @@ import { useDomain } from './components/DomainContext/DomainContext.jsx';
 
 
 const App = () => {
+  // 關閉提醒
+  const [ceoOnClose, setCeoOnClose] = useState(false)
+
   // 導航欄開關
   const [sideStatus, setSideStatus] = useState(false);
 
@@ -68,6 +71,12 @@ const App = () => {
 
   // Domain Name
   const { domain } = useDomain();
+
+  // 現在時間
+  const now = new Date().getTime()
+
+  // 我的 token 過期時間
+  const myExp = localStorage.getItem('myExp')
 
   useEffect(() => {
     // API 函數集中存放
@@ -136,11 +145,11 @@ const App = () => {
         setAppLockMin(settings.lockMin);
 
         // 系統資訊
-        setAppInitialSetup(settings.initialSetup);
-        setAppUnitName(settings.unitName);
-        setAppMachineName(settings.machineID);
-        setAppMachineDate(settings.machineDate);
-        setAppCED(settings.CED);
+        setAppInitialSetup(settings.initialSetup); // 初始化判斷值
+        setAppUnitName(settings.unitName); // 簽約單位 & 學校 
+        setAppMachineName(settings.machineID); // 機器名稱
+        setAppMachineDate(settings.machineDate); // 機器出廠時間
+        setAppCED(settings.CED); // 過期時間
       } catch (error) {
         console.log(error);
       }
@@ -152,6 +161,12 @@ const App = () => {
   // 需要填寫初始化
   if (appInitialSetup === 'false') {
     return <Initial />;
+  }
+
+  // 判斷是否 Exp 有過期 
+  if (myExp && now > myExp) {
+    localStorage.clear();
+    return <Login appLoginCount={appLoginCount} appLockMin={appLockMin} />;
   }
 
   // 我的 token 不是空的
@@ -180,7 +195,7 @@ const App = () => {
         <section style={{ marginLeft: `${sideStatus === true ? '300px' : '0px'}` }} className='app-page-wrapper'>
           <Routes>
             {/* 首頁 */}
-            <Route path='/' element={<Home appMqttMin={appMqttMin} appGrayColorMin={appGrayColorMin} listenCity={listenCity} listenTowns={listenTowns} appMqtt={appMqtt} eqData={eqData} appCwbReport={appCwbReport} appCwbPReport={appCwbPReport} />} />
+            <Route path='/' element={<Home appMqttMin={appMqttMin} appGrayColorMin={appGrayColorMin} listenCity={listenCity} listenTowns={listenTowns} appMqtt={appMqtt} eqData={eqData} appCwbReport={appCwbReport} appCwbPReport={appCwbPReport} appCED={appCED} setCeoOnClose={setCeoOnClose} ceoOnClose={ceoOnClose} />} />
             {/* 選擇本機位置頁面 */}
             {myAuthority === 'system-staff' ? <Route path='/SelectLocal' element={<SelectLocal />} /> : <Route path='*' element={<NotFound />} />}
             {/* 移報設定頁面 */}

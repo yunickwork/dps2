@@ -58,7 +58,7 @@ const Login = ({ appLoginCount, appLockMin }) => {
           localStorage.setItem('myName', data[0].name);
           localStorage.setItem('myId', data[0].id);
           localStorage.setItem('myUser', data[0].user);
-          localStorage.setItem('myExp', new Date().getTime() + 1 * 1000 * 60 * 60 * 7);
+          localStorage.setItem('myExp', data[0].exp);
           localStorage.setItem('myAuthority', data[0].authority);
           localStorage.removeItem('myCount');
 
@@ -82,7 +82,7 @@ const Login = ({ appLoginCount, appLockMin }) => {
           localStorage.clear();
           setTimeout(() => {
             window.location.href = '/';
-          }, 5000); // 5秒後跳轉
+          }, 3000); // 3秒後跳轉
         }
       })
       .catch(err => alert(err + ' 連線異常請檢察網路問題 or 資料庫 or Api'))
