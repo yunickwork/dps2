@@ -117,8 +117,8 @@ const Initial = () => {
         ],
         cwb: [
           {
-            ACC: cwbAccount,
-            PSW: cwbPwd
+            ACC: cwbAccount === '' ? null : cwbAccount,
+            PSW: cwbPwd === '' ? null : cwbPwd
           }
         ]
       })
